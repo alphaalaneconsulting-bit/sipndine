@@ -14,6 +14,7 @@ const NAV = [
   { to: "/offers", label: "Offers" },
   { to: "/membership", label: "Membership" },
   { to: "/contact", label: "Contact" },
+  { to: "/admin", label: "Admin" },
 ];
 
 export function BrandMark({ size = 34, color = "#C5A059" }) {
@@ -119,7 +120,6 @@ export function Header() {
                 </NavLink>
               ))}
               <Link to="/book-table" className="btn-gold mt-6" data-testid="mobile-book-table-btn">Book a Table</Link>
-              <Link to="/admin" className="nav-link mt-4" data-testid="mobile-nav-link-admin">Admin</Link>
             </nav>
           </div>
         </div>
