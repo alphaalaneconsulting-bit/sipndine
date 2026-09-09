@@ -1,0 +1,160 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --cream: #FAF6F0;
+  --cream-muted: #F5EFE6;
+  --wood: #2C1A14;
+  --wood-2: #3D2319;
+  --maroon: #4A0E17;
+  --maroon-dark: #3B0B12;
+  --gold: #C5A059;
+  --gold-bright: #D4AF37;
+
+  --background: 36 40% 96%;
+  --foreground: 20 45% 12%;
+  --card: 36 40% 96%;
+  --card-foreground: 20 45% 12%;
+  --popover: 36 40% 96%;
+  --popover-foreground: 20 45% 12%;
+  --primary: 350 71% 17%;
+  --primary-foreground: 36 40% 96%;
+  --secondary: 30 28% 92%;
+  --secondary-foreground: 20 45% 12%;
+  --muted: 30 28% 92%;
+  --muted-foreground: 20 20% 40%;
+  --accent: 41 46% 56%;
+  --accent-foreground: 20 45% 12%;
+  --destructive: 0 60% 40%;
+  --destructive-foreground: 36 40% 96%;
+  --border: 41 30% 75%;
+  --input: 41 30% 82%;
+  --ring: 41 46% 56%;
+  --radius: 0.25rem;
+}
+
+html, body {
+  margin: 0;
+  background: var(--cream);
+  color: var(--wood);
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.font-serif-display { font-family: 'Cormorant Garamond', serif; letter-spacing: -0.01em; }
+.font-script { font-family: 'Alex Brush', cursive; }
+.font-sans-brand { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; }
+
+.eyebrow {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.28em;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--gold);
+}
+
+.hairline { height: 1px; background: linear-gradient(90deg, transparent, rgba(197,160,89,0.6), transparent); }
+
+.btn-primary {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+  background: var(--maroon); color: var(--cream);
+  padding: 0.85rem 1.75rem; font-family: 'Cormorant Garamond', serif;
+  font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; font-size: 0.82rem;
+  border: 1px solid rgba(197,160,89,0.35); transition: all 300ms ease;
+  cursor: pointer;
+}
+.btn-primary:hover { background: var(--maroon-dark); border-color: var(--gold-bright); transform: translateY(-1px); }
+
+.btn-gold {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+  background: linear-gradient(135deg, var(--gold), var(--gold-bright));
+  color: var(--wood); padding: 0.85rem 1.75rem;
+  font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600;
+  letter-spacing: 0.16em; text-transform: uppercase; font-size: 0.78rem;
+  border: none; transition: all 300ms ease; cursor: pointer;
+}
+.btn-gold:hover { filter: brightness(0.95); transform: translateY(-1px); }
+
+.btn-outline-gold {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+  background: transparent; color: var(--gold);
+  padding: 0.75rem 1.5rem; border: 1px solid var(--gold);
+  font-family: 'Cormorant Garamond', serif; font-weight: 500;
+  letter-spacing: 0.18em; text-transform: uppercase; font-size: 0.78rem;
+  transition: all 300ms ease; cursor: pointer;
+}
+.btn-outline-gold:hover { background: var(--gold); color: var(--wood); }
+
+.nav-link {
+  position: relative;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.78rem; letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba(250,246,240,0.85); padding: 0.3rem 0; transition: color 200ms ease;
+}
+.nav-link::after {
+  content: ''; position: absolute; left: 0; bottom: -2px; width: 0; height: 1px;
+  background: var(--gold-bright); transition: width 300ms ease;
+}
+.nav-link:hover, .nav-link.active { color: var(--gold-bright); }
+.nav-link:hover::after, .nav-link.active::after { width: 100%; }
+
+.section { padding: 6rem 1.5rem; }
+@media (min-width: 768px) { .section { padding: 8rem 3rem; } }
+
+.container-narrow { max-width: 1200px; margin: 0 auto; }
+.container-editorial { max-width: 900px; margin: 0 auto; }
+
+.fade-up { opacity: 0; transform: translateY(24px); animation: fadeUp 900ms cubic-bezier(0.2,0.65,0.2,1) forwards; }
+.fade-up-delay-1 { animation-delay: 120ms; }
+.fade-up-delay-2 { animation-delay: 240ms; }
+.fade-up-delay-3 { animation-delay: 360ms; }
+@keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+.hover-zoom { overflow: hidden; }
+.hover-zoom img { transition: transform 900ms ease; }
+.hover-zoom:hover img { transform: scale(1.06); }
+
+.grain::before {
+  content: ''; position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.9' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E");
+  opacity: 0.08; pointer-events: none; mix-blend-mode: overlay;
+}
+
+.divider-diamond {
+  display: flex; align-items: center; justify-content: center; gap: 1rem;
+  color: var(--gold); font-size: 0.7rem;
+}
+.divider-diamond::before, .divider-diamond::after {
+  content: ''; height: 1px; background: rgba(197,160,89,0.4); flex: 1; max-width: 60px;
+}
+
+/* rich text (our story body) */
+.prose-warm p { font-size: 1.05rem; line-height: 1.9; margin-bottom: 1.2rem; color: rgba(44,26,20,0.85); font-family: 'Cormorant Garamond', serif; font-weight: 400; }
+.prose-warm p:first-of-type::first-letter { font-size: 3.2rem; float: left; padding: 0.2rem 0.6rem 0 0; font-family: 'Cormorant Garamond', serif; color: var(--maroon); line-height: 1; }
+.prose-warm em { color: var(--maroon); font-style: italic; }
+.prose-warm strong { color: var(--wood); font-weight: 600; }
+
+/* logo SVG */
+.brand-logo { display: inline-flex; align-items: center; gap: 0.6rem; }
+.brand-logo .mark { width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--gold); display: flex; align-items: center; justify-content: center; background: var(--wood); color: var(--gold); font-family: 'Alex Brush', cursive; font-size: 1.5rem; padding-top: 4px; }
+.brand-logo .wordmark { display: flex; flex-direction: column; line-height: 1; }
+.brand-logo .name { font-family: 'Alex Brush', cursive; font-size: 1.6rem; color: var(--gold); }
+.brand-logo .tag { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.5rem; letter-spacing: 0.3em; color: rgba(250,246,240,0.7); text-transform: uppercase; }
+.brand-logo.light .mark { background: var(--cream); color: var(--maroon); border-color: var(--maroon); }
+.brand-logo.light .name { color: var(--maroon); }
+.brand-logo.light .tag { color: rgba(44,26,20,0.6); }
+
+.card-warm { background: var(--cream); border: 1px solid rgba(197,160,89,0.25); transition: all 300ms ease; }
+.card-warm:hover { border-color: rgba(197,160,89,0.6); box-shadow: 0 24px 60px -30px rgba(74,14,23,0.25); }
+
+.tag-veg { display: inline-block; width: 10px; height: 10px; border: 1px solid #4a7f2c; padding: 1px; }
+.tag-veg::after { content: ''; display: block; width: 100%; height: 100%; background: #4a7f2c; border-radius: 50%; }
+.tag-nonveg { display: inline-block; width: 10px; height: 10px; border: 1px solid #a12522; padding: 1px; }
+.tag-nonveg::after { content: ''; display: block; width: 100%; height: 100%; background: #a12522; border-radius: 50%; }
+
+@layer base {
+  * { border-color: hsl(var(--border)); }
+}

@@ -1,0 +1,179 @@
+{
+  "project_name": "Sip 'n' Dine - Indian Fine Dining",
+  "location": "SCO 16A, Sector 7C, Madhya Marg, Chandigarh 160019",
+  "contact": {
+    "phones": ["+91 172 4641656", "+91 172 2791656"],
+    "email": "info@sipndine.co.in"
+  },
+  "design_philosophy": {
+    "archetype": "LUXURY & HERITAGE EDITORIAL",
+    "reference_inspiration": "fugafamily.com style — full-bleed cinematic interior imagery, slim floating header navigation, generous whitespace, large evocative serif typography, editorial short copy, subtle scroll fade-ins, and press/recognition badges.",
+    "emotional_tone": "Warm, hospitable, opulent yet restrained, Chandigarh heritage fine dining",
+    "theme": "Warm Earthy Dark & Cream Harmony"
+  },
+  "typography": {
+    "heading_font": "Cormorant Garamond, serif",
+    "script_font": "Alex Brush, cursive",
+    "body_font": "Plus Jakarta Sans, sans-serif",
+    "mono_font": "JetBrains Mono, monospace",
+    "google_fonts_embed": "https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap",
+    "scale": {
+      "h1_hero": "text-4xl sm:text-5xl lg:text-6xl font-serif tracking-tight leading-none",
+      "h2_section": "text-2xl sm:text-3xl lg:text-4xl font-serif tracking-tight leading-tight",
+      "h3_subsection": "text-xl sm:text-2xl font-serif leading-snug",
+      "eyebrow": "text-xs uppercase tracking-[0.25em] text-[#C5A059] font-semibold",
+      "body": "text-base font-sans leading-relaxed text-[#2C1A14]/90 dark:text-[#FAF6F0]/90",
+      "caption": "text-xs font-sans tracking-wide text-muted-foreground"
+    }
+  },
+  "colors": {
+    "brand": {
+      "deep_maroon": "#4A0E17",
+      "deep_maroon_hover": "#3B0B12",
+      "warm_wood": "#2C1A14",
+      "rich_brown": "#3D2319",
+      "cream": "#FAF6F0",
+      "cream_muted": "#F5EFE6",
+      "soft_gold": "#C5A059",
+      "soft_gold_bright": "#D4AF37",
+      "gold_border": "rgba(197, 160, 89, 0.3)",
+      "gold_glow": "rgba(212, 175, 55, 0.15)"
+    },
+    "surfaces": {
+      "hero_overlay": "bg-gradient-to-t from-[#2C1A14]/90 via-[#2C1A14]/50 to-transparent",
+      "nav_glass": "backdrop-blur-xl bg-[#2C1A14]/80 border-b border-[#C5A059]/20 text-[#FAF6F0]",
+      "card_light": "bg-[#FAF6F0] border border-[#C5A059]/20 text-[#2C1A14] shadow-sm hover:border-[#C5A059]/50 transition-all",
+      "card_dark": "bg-[#2C1A14] border border-[#C5A059]/30 text-[#FAF6F0] shadow-md",
+      "accent_banner": "bg-[#4A0E17] text-[#FAF6F0]"
+    }
+  },
+  "media_assets": {
+    "local_restaurant_images": {
+      "image1": "/restaurant/image1.jpeg",
+      "image2_storefront": "/restaurant/image2.jpeg",
+      "image3": "/restaurant/image3.jpeg",
+      "image4": "/restaurant/image4.jpeg",
+      "image5_communal_floral": "/restaurant/image5.jpeg",
+      "image6": "/restaurant/image6.jpeg",
+      "image7": "/restaurant/image7.jpeg"
+    },
+    "usage_guidelines": {
+      "hero": "/restaurant/image1.jpeg (Warm wood-paneled interior)",
+      "our_story": "/restaurant/image5.jpeg (Communal dining with floral-wall backdrop)",
+      "gallery_masonry": "All 7 images (/restaurant/image1.jpeg through image7.jpeg)",
+      "storefront_badge": "/restaurant/image2.jpeg (Storefront with green Sip 'n' Dine signage)",
+      "dish_card_fallbacks": [
+        "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1565557623262-b51c2513a641?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80"
+      ]
+    }
+  },
+  "site_structure_pages": [
+    {
+      "path": "/",
+      "name": "Home",
+      "sections": [
+        "Full-bleed interior hero (/restaurant/image1.jpeg) with floating CTA & reservation bar",
+        "Our Story teaser with script accent heading and link to dedicated page",
+        "'Why Chandigarh Loves Us' ratings & recognition section (Google 4.6★, Zomato 4.5★, JustDial, Rotary Award)",
+        "Signature Dishes teaser (4 AI-generated dish cards with warm lighting & price)",
+        "Explore Offerings Bento Tiles (Buffet, Banqueting, Catering, Membership)",
+        "Editorial Footer with contact details, live Google Map embed, opening hours, social links"
+      ]
+    },
+    {
+      "path": "/our-story",
+      "name": "Our Story",
+      "purpose": "Long-form editorial narrative about Sip 'n' Dine's legacy in Sector 7C, Chandigarh"
+    },
+    {
+      "path": "/menu",
+      "name": "Menu",
+      "purpose": "Categorized menu (Starters, Tandoor, Mains, Biryani, Breads, Desserts, Drinks) with search, dietary filters, and photorealistic AI dish photos"
+    },
+    {
+      "path": "/buffet",
+      "name": "Restaurant Buffet",
+      "purpose": "Spread highlights, daily rotation menu, pricing, timings, and slot booking"
+    },
+    {
+      "path": "/gallery",
+      "name": "Gallery",
+      "purpose": "Cinematic masonry layout of restaurant photos (/restaurant/image1.jpeg to image7.jpeg) with lightbox viewer"
+    },
+    {
+      "path": "/banqueting",
+      "name": "Banqueting & Events",
+      "purpose": "Private halls, capacity details, event packages, and interactive enquiry form"
+    },
+    {
+      "path": "/catering",
+      "name": "Catering",
+      "purpose": "Outdoor & luxury event catering, live live counter setups, custom menu planner form"
+    },
+    {
+      "path": "/offers",
+      "name": "Offers & Specials",
+      "purpose": "Festive discounts, happy hours, corporate lunch deals"
+    },
+    {
+      "path": "/membership",
+      "name": "Privilege Membership",
+      "purpose": "Exclusive rewards tier, VIP dining perks, early bird access coming-soon email capture"
+    },
+    {
+      "path": "/book-table",
+      "name": "Book a Table",
+      "purpose": "Reservation form with date/time picker, guest count, special requests, instant feedback toast"
+    },
+    {
+      "path": "/contact",
+      "name": "Location & Contact",
+      "purpose": "Address, phone numbers, email, operational hours, interactive map embed, and general enquiry"
+    },
+    {
+      "path": "/admin",
+      "name": "Admin CMS Dashboard",
+      "purpose": "JWT Login, per-page CMS text editor, real-time reservation manager, global site settings, image manager, offers/tiers/recognition CRUD"
+    }
+  ],
+  "components_and_layout_rules": {
+    "header": {
+      "style": "Slim floating bar with dark maroon/wood backdrop blur (backdrop-blur-md bg-[#2C1A14]/85 border-b border-[#C5A059]/30)",
+      "desktop_links": "All 11 main tabs visible with gold hover underline animation",
+      "cta": "Gold accent button 'Book a Table'"
+    },
+    "buttons": {
+      "primary": "bg-[#4A0E17] hover:bg-[#3B0B12] text-[#FAF6F0] border border-[#C5A059]/40 rounded-none px-6 py-3 font-serif uppercase tracking-wider text-sm shadow-md transition-all duration-300 hover:border-[#D4AF37]",
+      "gold_cta": "bg-gradient-to-r from-[#C5A059] to-[#D4AF37] hover:from-[#B8860B] hover:to-[#C5A059] text-[#2C1A14] font-semibold rounded-none px-6 py-3 uppercase tracking-wider text-sm transition-all duration-300 shadow-md",
+      "outline": "border border-[#C5A059] text-[#C5A059] hover:bg-[#C5A059] hover:text-[#2C1A14] rounded-none px-6 py-3 font-serif uppercase tracking-wider text-sm transition-all"
+    },
+    "cards": {
+      "signature_dish": "Group container with image zoom on hover, subtle gold border on dark brown card (#2C1A14), soft price badge in gold",
+      "recognition_badge": "Clean border card with star ratings, press quotes, and Rotary award plaque iconography"
+    }
+  },
+  "testing_attributes": {
+    "data_testid_requirement": "ALL interactive components, navigation links, forms, buttons, table inputs, admin login, and dialogs MUST have unique descriptive data-testid attributes.",
+    "examples": [
+      "data-testid='nav-link-home'",
+      "data-testid='nav-link-menu'",
+      "data-testid='book-table-submit-button'",
+      "data-testid='admin-login-email-input'",
+      "data-testid='admin-login-password-input'",
+      "data-testid='menu-category-starters-tab'",
+      "data-testid='reservation-date-picker'"
+    ]
+  },
+  "instructions_to_main_agent": [
+    "Load Google Fonts for 'Cormorant Garamond', 'Alex Brush', and 'Plus Jakarta Sans' in public/index.html or index.css.",
+    "Set default background to warm cream (#FAF6F0) for public sections and rich wood (#2C1A14) for dark sections/hero.",
+    "Ensure header nav contains links to all 11 public pages + Admin login entry.",
+    "Use direct path references for local uploaded restaurant images: /restaurant/image1.jpeg through /restaurant/image7.jpeg.",
+    "Include JWT authentication flow for the /admin dashboard route with tabbed CMS controls for Bookings, Content Editor, Global Settings, Menu Items, and Offers.",
+    "Provide responsive drawer/sheet menu for mobile viewports, while keeping desktop top navigation clean and slim.",
+    "Verify all interactive buttons, inputs, links, tabs, and form submissions carry appropriate kebab-case data-testid attributes."
+  ]
+}
