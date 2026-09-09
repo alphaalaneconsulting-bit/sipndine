@@ -20,12 +20,12 @@ export default function Home() {
   }, []);
 
   const tiles = [
-    { to: "/menu", label: "The Menu", img: "/restaurant/image7.jpeg" },
-    { to: "/buffet", label: "Buffet", img: "/restaurant/image3.jpeg" },
-    { to: "/banqueting", label: "Private Dining", img: "/restaurant/image5.jpeg" },
-    { to: "/catering", label: "Catering", img: "/restaurant/image4.jpeg" },
-    { to: "/offers", label: "Offers", img: "/restaurant/image6.jpeg" },
-    { to: "/membership", label: "Membership", img: "/restaurant/image1.jpeg" },
+    { to: "/menu", label: "The Menu", caption: "Awadhi · Punjabi · Signature", img: "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?auto=format&fit=crop&w=1400&q=80" },
+    { to: "/buffet", label: "Buffet", caption: "Lunch & Dinner spread", img: "https://images.unsplash.com/photo-1555126634-323283e090fa?auto=format&fit=crop&w=1100&q=80" },
+    { to: "/banqueting", label: "Private Dining", caption: "The floral-wall nook", img: "/restaurant/image5.jpeg" },
+    { to: "/catering", label: "Catering", caption: "Our kitchen, at your address", img: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1100&q=80" },
+    { to: "/offers", label: "Offers", caption: "This season's reasons", img: "https://images.unsplash.com/photo-1544145945-f90425340c7e?auto=format&fit=crop&w=1100&q=80" },
+    { to: "/membership", label: "Membership", caption: "A quieter kind of loyalty", img: "https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?auto=format&fit=crop&w=1100&q=80" },
   ];
 
   return (
@@ -125,17 +125,28 @@ export default function Home() {
             <div className="eyebrow mb-3">Explore</div>
             <h2 className="font-serif-display text-4xl md:text-5xl text-[color:var(--wood)]">Every way to visit</h2>
           </div>
-          <div className="grid md:grid-cols-3 gap-4">
-            {tiles.map((t, i) => (
-              <Link key={t.to} to={t.to} className={`group relative overflow-hidden hover-zoom ${i === 0 ? "md:col-span-2 aspect-[16/10]" : "aspect-[4/5]"}`} data-testid={`explore-tile-${t.to.replace("/", "")}`}>
-                <img src={t.img} alt="" className="w-full h-full object-cover" />
-                <div className="absolute inset-0 bg-gradient-to-t from-[color:var(--wood)]/90 via-[color:var(--wood)]/20 to-transparent" />
-                <div className="absolute bottom-6 left-6 right-6 text-[color:var(--cream)]">
-                  <div className="font-serif-display text-3xl">{t.label}</div>
-                  <div className="eyebrow mt-2 text-[color:var(--gold)] opacity-0 group-hover:opacity-100 transition duration-500">Discover →</div>
-                </div>
-              </Link>
-            ))}
+          <div className="grid md:grid-cols-6 gap-4 auto-rows-[240px]">
+            {tiles.map((t, i) => {
+              const spans = [
+                "md:col-span-4 md:row-span-2",   // Menu — large
+                "md:col-span-2 md:row-span-1",   // Buffet
+                "md:col-span-2 md:row-span-1",   // Private Dining
+                "md:col-span-2 md:row-span-2",   // Catering — tall
+                "md:col-span-2 md:row-span-1",   // Offers
+                "md:col-span-2 md:row-span-1",   // Membership
+              ];
+              return (
+                <Link key={t.to} to={t.to} className={`group relative overflow-hidden hover-zoom ${spans[i]}`} data-testid={`explore-tile-${t.to.replace("/", "")}`}>
+                  <img src={t.img} alt={t.label} className="w-full h-full object-cover" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[color:var(--wood)]/90 via-[color:var(--wood)]/25 to-transparent transition duration-500 group-hover:from-[color:var(--maroon)]/85" />
+                  <div className="absolute bottom-6 left-6 right-6 text-[color:var(--cream)]">
+                    <div className="eyebrow text-[color:var(--gold)] mb-1">{t.caption}</div>
+                    <div className="font-serif-display text-3xl md:text-4xl leading-none">{t.label}</div>
+                    <div className="eyebrow mt-3 text-[color:var(--gold)] translate-y-2 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transition duration-500">Discover →</div>
+                  </div>
+                </Link>
+              );
+            })}
           </div>
         </div>
       </section>

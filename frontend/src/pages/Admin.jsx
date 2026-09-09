@@ -16,9 +16,16 @@ function Login() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-[color:var(--wood)] p-6" data-testid="admin-login">
       <form onSubmit={submit} className="w-full max-w-md bg-[color:var(--cream)] p-10 border border-[color:var(--gold)]/40">
-        <div className="text-center mb-8">
-          <div className="font-script text-4xl text-[color:var(--maroon)]">Sip 'n' Dine</div>
-          <div className="eyebrow mt-2">Owner Access</div>
+        <div className="text-center mb-8 flex flex-col items-center">
+          <svg viewBox="0 0 200 200" width="64" height="64" aria-hidden>
+            {Array.from({ length: 22 }).map((_, i) => (
+              <g key={i} transform={`rotate(${(360 / 22) * i} 100 100)`}>
+                <path d="M100 12 C 96 30 96 50 100 62 C 104 50 104 30 100 12 Z" fill="none" stroke="#B5895A" strokeWidth="3.2" strokeLinejoin="round" />
+              </g>
+            ))}
+          </svg>
+          <div className="font-serif-display font-bold text-3xl text-[color:var(--maroon)] mt-3">Sip 'n' Dine</div>
+          <div className="eyebrow mt-1">Owner Access</div>
         </div>
         <label className="eyebrow block mb-2">Email</label>
         <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} className="w-full p-3 border border-[color:var(--gold)]/40 bg-transparent mb-4" data-testid="admin-login-email-input" />
@@ -254,9 +261,18 @@ function Dashboard() {
   return (
     <div className="min-h-screen bg-[color:var(--cream-muted)]" data-testid="admin-dashboard">
       <header className="bg-[color:var(--wood)] text-[color:var(--cream)] p-6 flex justify-between items-center">
-        <div>
-          <div className="font-script text-3xl text-[color:var(--gold)]">Sip 'n' Dine</div>
-          <div className="text-xs uppercase tracking-widest">Owner Dashboard · {user?.email}</div>
+        <div className="flex items-center gap-3">
+          <svg viewBox="0 0 200 200" width="42" height="42" aria-hidden>
+            {Array.from({ length: 22 }).map((_, i) => (
+              <g key={i} transform={`rotate(${(360 / 22) * i} 100 100)`}>
+                <path d="M100 12 C 96 30 96 50 100 62 C 104 50 104 30 100 12 Z" fill="none" stroke="#C5A059" strokeWidth="3.2" strokeLinejoin="round" />
+              </g>
+            ))}
+          </svg>
+          <div>
+            <div className="font-serif-display font-bold text-2xl text-[color:var(--gold)]">Sip 'n' Dine</div>
+            <div className="text-xs uppercase tracking-widest">Owner Dashboard · {user?.email}</div>
+          </div>
         </div>
         <button className="btn-outline-gold text-xs" onClick={doLogout} data-testid="admin-logout">Sign Out</button>
       </header>

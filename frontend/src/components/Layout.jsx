@@ -16,13 +16,51 @@ const NAV = [
   { to: "/contact", label: "Contact" },
 ];
 
-export function Brand({ light = false }) {
+export function BrandMark({ size = 34, color = "#C5A059" }) {
+  // 22 radial petal/teardrops forming a mandala sun
+  const petals = 22;
+  const items = [];
+  for (let i = 0; i < petals; i++) {
+    const a = (360 / petals) * i;
+    items.push(
+      <g key={i} transform={`rotate(${a} 100 100)`}>
+        <path
+          d="M100 12 C 96 30 96 50 100 62 C 104 50 104 30 100 12 Z"
+          fill="none"
+          stroke={color}
+          strokeWidth="3.2"
+          strokeLinejoin="round"
+        />
+      </g>
+    );
+  }
   return (
-    <Link to="/" className={`brand-logo ${light ? "light" : ""}`} data-testid="brand-logo">
-      <span className="mark">S</span>
-      <span className="wordmark">
-        <span className="name">Sip 'n' Dine</span>
-        <span className="tag">Indian Fine Dining</span>
+    <svg viewBox="0 0 200 200" width={size} height={size} aria-hidden focusable="false">
+      {items}
+    </svg>
+  );
+}
+
+export function Brand({ light = false }) {
+  const gold = light ? "#B58A3E" : "#C5A059";
+  const maroon = light ? "#4A0E17" : "#E8C88A"; // on dark header show wordmark in warm gold/cream
+  const tag = light ? "rgba(74,14,23,0.7)" : "rgba(232,200,138,0.8)";
+  return (
+    <Link to="/" className="inline-flex items-center gap-3" data-testid="brand-logo">
+      <BrandMark size={40} color={gold} />
+      <span className="flex flex-col leading-none">
+        <span
+          className="font-serif-display"
+          style={{ color: maroon, fontWeight: 700, fontSize: "1.35rem", letterSpacing: "0.01em" }}
+        >
+          Sip 'n' Dine
+        </span>
+        <span
+          className="font-sans-brand"
+          style={{ color: tag, fontSize: "0.52rem", letterSpacing: "0.32em", textTransform: "uppercase", marginTop: "3px" }}
+        >
+          Indian Fine Dining
+        </span>
       </span>
     </Link>
   );
