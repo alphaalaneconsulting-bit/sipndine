@@ -81,6 +81,7 @@ export function Header() {
   useEffect(() => setOpen(false), [loc.pathname]);
 
   return (
+    <>
     <header
       className="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
       style={{
@@ -104,27 +105,31 @@ export function Header() {
         </div>
         <button className="lg:hidden text-[color:var(--cream)]" onClick={() => setOpen(true)} data-testid="mobile-menu-open"><Menu size={22} /></button>
       </div>
-
-      {open && (
-        <div className="fixed inset-0 z-[60] lg:hidden" data-testid="mobile-menu">
-          <div className="absolute inset-0 bg-[color:var(--wood)]/95 backdrop-blur-xl" />
-          <div className="relative h-full flex flex-col p-8">
-            <div className="flex items-center justify-between">
-              <Brand />
-              <button className="text-[color:var(--cream)]" onClick={() => setOpen(false)} data-testid="mobile-menu-close"><X size={22} /></button>
-            </div>
-            <nav className="mt-14 flex flex-col gap-6">
-              {NAV.map((n) => (
-                <NavLink key={n.to} to={n.to} end={n.to === "/"} className={({ isActive }) => `nav-link text-lg ${isActive ? "active" : ""}`} data-testid={`mobile-nav-link-${n.label.toLowerCase().replace(/\s+/g, "-")}`}>
-                  {n.label}
-                </NavLink>
-              ))}
-              <Link to="/book-table" className="btn-gold mt-6" data-testid="mobile-book-table-btn">Book a Table</Link>
-            </nav>
-          </div>
-        </div>
-      )}
     </header>
+
+    {open && (
+      <div
+        className="fixed inset-0 lg:hidden"
+        style={{ background: "#2C1A14", zIndex: 9999 }}
+        data-testid="mobile-menu"
+      >
+        <div className="h-full w-full flex flex-col p-8 overflow-y-auto" style={{ background: "#2C1A14" }}>
+          <div className="flex items-center justify-between">
+            <Brand />
+            <button className="text-[color:var(--cream)]" onClick={() => setOpen(false)} data-testid="mobile-menu-close"><X size={22} /></button>
+          </div>
+          <nav className="mt-14 flex flex-col gap-6">
+            {NAV.map((n) => (
+              <NavLink key={n.to} to={n.to} end={n.to === "/"} className={({ isActive }) => `nav-link text-lg ${isActive ? "active" : ""}`} data-testid={`mobile-nav-link-${n.label.toLowerCase().replace(/\s+/g, "-")}`}>
+                {n.label}
+              </NavLink>
+            ))}
+            <Link to="/book-table" className="btn-gold mt-6" data-testid="mobile-book-table-btn">Book a Table</Link>
+          </nav>
+        </div>
+      </div>
+    )}
+    </>
   );
 }
 
