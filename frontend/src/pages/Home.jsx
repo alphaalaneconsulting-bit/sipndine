@@ -138,11 +138,14 @@ export default function Home() {
               return (
                 <Link key={t.to} to={t.to} className={`group relative overflow-hidden hover-zoom ${spans[i]}`} data-testid={`explore-tile-${t.to.replace("/", "")}`}>
                   <img src={t.img} alt={t.label} className="w-full h-full object-cover" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[color:var(--wood)]/90 via-[color:var(--wood)]/25 to-transparent transition duration-500 group-hover:from-[color:var(--maroon)]/85" />
-                  <div className="absolute bottom-6 left-6 right-6 text-[color:var(--cream)]">
-                    <div className="eyebrow text-[color:var(--gold)] mb-1">{t.caption}</div>
-                    <div className="font-serif-display text-3xl md:text-4xl leading-none">{t.label}</div>
-                    <div className="eyebrow mt-3 text-[color:var(--gold)] translate-y-2 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transition duration-500">Discover →</div>
+                  {/* Base darkening for legibility on any image */}
+                  <div className="absolute inset-0 bg-[color:var(--wood)]/30 transition duration-500 group-hover:bg-[color:var(--maroon)]/40" />
+                  {/* Strong bottom gradient behind the label */}
+                  <div className="absolute inset-x-0 bottom-0 h-2/3" style={{ background: "linear-gradient(to top, rgba(30,17,12,0.95) 0%, rgba(30,17,12,0.75) 45%, rgba(30,17,12,0) 100%)" }} />
+                  <div className="absolute bottom-6 left-6 right-6 text-[color:var(--cream)]" style={{ textShadow: "0 2px 12px rgba(0,0,0,0.65)" }}>
+                    <div className="eyebrow text-[color:var(--gold-bright)] mb-1" style={{ color: "#E8C88A", textShadow: "0 1px 8px rgba(0,0,0,0.75)" }}>{t.caption}</div>
+                    <div className="font-serif-display text-3xl md:text-4xl leading-none font-semibold">{t.label}</div>
+                    <div className="eyebrow mt-3 text-[color:var(--gold-bright)] translate-y-2 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transition duration-500" style={{ color: "#E8C88A" }}>Discover →</div>
                   </div>
                 </Link>
               );
