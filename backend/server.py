@@ -3789,7 +3789,7 @@ else:
     log.info(
         "Menu import %s already completed — keeping existing menu.",
         MENU_IMPORT_VERSION
-
+    )
     # recognition
     if await db.recognition.count_documents({}) == 0:
 
