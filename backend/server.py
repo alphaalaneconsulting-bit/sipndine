@@ -3730,97 +3730,74 @@ async def startup():
 
             await db.content.insert_one(doc)
 
-    # menu
-        # =========================================================
-# MENU IMPORT / SEED
-# =========================================================
+    # menu import / seed
+    # This runs only once. After that, admin edits are preserved.
+    MENU_IMPORT_VERSION = "menu_import_2026_10_03_v1"
 
-MENU_IMPORT_VERSION = "menu_import_2026_10_03_v1"
+    menu_import_done = await db.settings.find_one({
+        "_id": MENU_IMPORT_VERSION
+    })
 
-menu_import_done = await db.settings.find_one({
-    "_id": MENU_IMPORT_VERSION
-})
+    if not menu_import_done:
+        log.info("Starting Sip 'n' Dine menu import...")
 
-if not menu_import_done:
+        # Remove the old demo menu only during this one-time import.
+        await db.menu.delete_many({})
 
-    log.info("Starting Sip 'n' Dine menu import...")
+        for i, (name, cat, desc, price, veg, sig) in enumerate(SEED_MENU):
+            image_url = UNSPLASH_BY_CATEGORY.get(cat, "")
 
-    # Remove the old demo menu.
-    # This runs ONLY ONCE because of the import marker above.
-    await db.menu.delete_many({})
+            doc = MenuItem(
+                name=name,
+                category=cat,
+                description=desc,
+                price=float(price) if price is not None else None,
+                veg=veg,
+                signature=sig,
+                order=i,
+                image_url=image_url,
+            ).model_dump()
 
-    for i, (name, cat, desc, price, veg, sig) in enumerate(SEED_MENU):
+            await db.menu.insert_one(doc)
 
-        # Use a category-specific rich food image as the initial image.
-        image_url = UNSPLASH_BY_CATEGORY.get(cat, "")
+        await db.settings.update_one(
+            {"_id": MENU_IMPORT_VERSION},
+            {
+                "$set": {
+                    "_id": MENU_IMPORT_VERSION,
+                    "completed_at": now_iso(),
+                    "items_imported": len(SEED_MENU),
+                }
+            },
+            upsert=True,
+        )
 
-        doc = MenuItem(
-            name=name,
-            category=cat,
-            description=desc,
-            price=float(price) if price is not None else None,
-            veg=veg,
-            signature=sig,
-            order=i,
-            image_url=image_url,
-        ).model_dump()
+        log.info(
+            "Imported %d Sip 'n' Dine menu items",
+            len(SEED_MENU)
+        )
+    else:
+        log.info(
+            "Menu import %s already completed — keeping existing menu.",
+            MENU_IMPORT_VERSION
+        )
 
-        await db.menu.insert_one(doc)
-
-    # Mark this import as completed.
-    await db.settings.update_one(
-        {"_id": MENU_IMPORT_VERSION},
-        {
-            "$set": {
-                "_id": MENU_IMPORT_VERSION,
-                "completed_at": now_iso(),
-                "items_imported": len(SEED_MENU),
-            }
-        },
-        upsert=True,
-    )
-
-    log.info(
-        "Imported %d Sip 'n' Dine menu items",
-        len(SEED_MENU)
-    )
-
-else:
-    log.info(
-        "Menu import %s already completed — keeping existing menu.",
-        MENU_IMPORT_VERSION
-    )
     # recognition
     if await db.recognition.count_documents({}) == 0:
-
-        for (
-            platform,
-            rating,
-            quote,
-            icon,
-            order
-        ) in SEED_RECOGNITION:
-
+        for platform, rating, quote, icon, order in SEED_RECOGNITION:
             await db.recognition.insert_one(
                 Recognition(
                     platform=platform,
                     rating=rating,
                     quote=quote,
                     icon=icon,
-                    order=order
+                    order=order,
                 ).model_dump()
             )
 
     # offers
     if await db.offers.count_documents({}) == 0:
-
-        for i, (
-            title,
-            sub,
-            desc,
-            till
-        ) in enumerate(SEED_OFFERS):
-
+        for i, (title, sub, desc, till) in enumerate(SEED_OFFERS):
             await db.offers.insert_one(
                 Offer(
                     title=title,
@@ -3828,24 +3805,13 @@ else:
                     description=desc,
                     valid_till=till,
                     order=i,
-                    image_url=(
-                        f"/restaurant/image{(i % 5) + 3}.jpeg"
-                    ),
+                    image_url=f"/restaurant/image{(i % 5) + 3}.jpeg",
                 ).model_dump()
             )
 
     # tiers
     if await db.membership.count_documents({}) == 0:
-
-        for i, (
-            name,
-            price,
-            tag,
-            benefits,
-            hl,
-            order
-        ) in enumerate(SEED_TIERS):
-
+        for i, (name, price, tag, benefits, hl, order) in enumerate(SEED_TIERS):
             await db.membership.insert_one(
                 Tier(
                     name=name,
@@ -3853,15 +3819,13 @@ else:
                     tagline=tag,
                     benefits=benefits,
                     highlighted=hl,
-                    order=order
+                    order=order,
                 ).model_dump()
             )
 
     # gallery
     if await db.gallery.count_documents({}) == 0:
-
         for i in range(1, 8):
-
             await db.gallery.insert_one(
                 GalleryImage(
                     url=f"/restaurant/image{i}.jpeg",
@@ -3870,11 +3834,9 @@ else:
                 ).model_dump()
             )
 
-    # background AI image regen
+    # background AI image regeneration
     if os.environ.get("SKIP_AI_SEED") != "1":
-        asyncio.create_task(
-            _seed_ai_images()
-        )
+        asyncio.create_task(_seed_ai_images())
 
 
 @app.on_event("shutdown")
