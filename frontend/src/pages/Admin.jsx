@@ -134,10 +134,7 @@ function ContentEditor() {
   if (!c) return null;
 
   return (
-    <div
-      className="space-y-4"
-      data-testid="content-editor"
-    >
+    <div className="space-y-4" data-testid="content-editor">
       <div className="flex flex-wrap gap-2 border-b pb-3">
         {PAGE_SLUGS.map((s) => (
           <button
@@ -155,9 +152,7 @@ function ContentEditor() {
         ))}
       </div>
 
-      <label className="eyebrow">
-        Eyebrow
-      </label>
+      <label className="eyebrow">Eyebrow</label>
 
       <input
         className="w-full p-2 border"
@@ -168,9 +163,7 @@ function ContentEditor() {
         data-testid="content-eyebrow"
       />
 
-      <label className="eyebrow">
-        Title
-      </label>
+      <label className="eyebrow">Title</label>
 
       <input
         className="w-full p-2 border"
@@ -181,9 +174,7 @@ function ContentEditor() {
         data-testid="content-title"
       />
 
-      <label className="eyebrow">
-        Hero Image URL
-      </label>
+      <label className="eyebrow">Hero Image URL</label>
 
       <input
         className="w-full p-2 border"
@@ -194,9 +185,7 @@ function ContentEditor() {
         data-testid="content-hero"
       />
 
-      <label className="eyebrow">
-        Intro
-      </label>
+      <label className="eyebrow">Intro</label>
 
       <textarea
         rows="3"
@@ -208,9 +197,7 @@ function ContentEditor() {
         data-testid="content-intro"
       />
 
-      <label className="eyebrow">
-        Body HTML (rich text)
-      </label>
+      <label className="eyebrow">Body HTML (rich text)</label>
 
       <textarea
         rows="10"
@@ -234,28 +221,22 @@ function ContentEditor() {
 }
 
 /* =========================================================
-   RESERVATION BOOKINGS
+   RESERVATIONS
 ========================================================= */
 
 function BookingsManager() {
   const [items, setItems] = useState([]);
 
   const load = () =>
-    api
-      .get("/admin/bookings")
-      .then((r) => setItems(r.data));
+    api.get("/admin/bookings").then((r) => setItems(r.data));
 
   useEffect(() => {
     load();
   }, []);
 
   const setStatus = async (b, status) => {
-    await api.put(`/admin/bookings/${b.id}`, {
-      status,
-    });
-
+    await api.put(`/admin/bookings/${b.id}`, { status });
     load();
-
     toast.success(`Marked ${status}`);
   };
 
@@ -263,7 +244,6 @@ function BookingsManager() {
     if (!window.confirm("Delete booking?")) return;
 
     await api.delete(`/admin/bookings/${b.id}`);
-
     load();
   };
 
@@ -311,20 +291,14 @@ function BookingsManager() {
 
               <button
                 className="btn-outline-gold text-xs px-3 py-1"
-                onClick={() =>
-                  setStatus(b, "confirmed")
-                }
-                data-testid={`booking-confirm-${b.id}`}
+                onClick={() => setStatus(b, "confirmed")}
               >
                 Confirm
               </button>
 
               <button
                 className="btn-outline-gold text-xs px-3 py-1"
-                onClick={() =>
-                  setStatus(b, "cancelled")
-                }
-                data-testid={`booking-cancel-${b.id}`}
+                onClick={() => setStatus(b, "cancelled")}
               >
                 Cancel
               </button>
@@ -332,7 +306,6 @@ function BookingsManager() {
               <button
                 className="text-xs text-red-700 underline"
                 onClick={() => del(b)}
-                data-testid={`booking-delete-${b.id}`}
               >
                 Delete
               </button>
@@ -351,12 +324,13 @@ function BookingsManager() {
 }
 
 /* =========================================================
-   RESERVATION SLOT MANAGER
+   RESERVATION SLOT MANAGEMENT
 ========================================================= */
 
 function ReservationSlotsManager() {
   const [date, setDate] = useState(() => {
     const now = new Date();
+
     const year = now.getFullYear();
     const month = String(now.getMonth() + 1).padStart(2, "0");
     const day = String(now.getDate()).padStart(2, "0");
@@ -367,10 +341,31 @@ function ReservationSlotsManager() {
   const [fullSlots, setFullSlots] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  const formatTime = (time) => {
+    const [hourString, minute] = time.split(":");
+
+    let hour = parseInt(hourString, 10);
+
+    const suffix = hour >= 12 ? "PM" : "AM";
+
+    if (hour === 0) {
+      hour = 12;
+    } else if (hour > 12) {
+      hour -= 12;
+    }
+
+    return `${hour}:${minute} ${suffix}`;
+  };
+
   const generateSlots = () => {
     const slots = [];
 
-    const addSlots = (startHour, startMinute, endHour, endMinute) => {
+    const addSlots = (
+      startHour,
+      startMinute,
+      endHour,
+      endMinute
+    ) => {
       let hour = startHour;
       let minute = startMinute;
 
@@ -393,16 +388,26 @@ function ReservationSlotsManager() {
       }
     };
 
-    // Lunch
+    // Lunch: 11:30 AM - 3:00 PM
     addSlots(11, 30, 15, 0);
 
-    // Dinner
+    // Dinner: 7:00 PM - 11:00 PM
     addSlots(19, 0, 23, 0);
 
     return slots;
   };
 
   const slots = generateSlots();
+
+  const lunchSlots = slots.filter((time) => {
+    const [hour] = time.split(":").map(Number);
+    return hour < 15;
+  });
+
+  const dinnerSlots = slots.filter((time) => {
+    const [hour] = time.split(":").map(Number);
+    return hour >= 19;
+  });
 
   const loadSlots = async () => {
     if (!date) return;
@@ -446,47 +451,24 @@ function ReservationSlotsManager() {
           fullSlots.filter((slot) => slot !== time)
         );
 
-        toast.success(`${formatTime(time)} is available`);
+        toast.success(
+          `${formatTime(time)} is available`
+        );
       } else {
-        setFullSlots([...fullSlots, time]);
+        setFullSlots([
+          ...fullSlots,
+          time,
+        ]);
 
-        toast.success(`${formatTime(time)} marked FULL`);
+        toast.success(
+          `${formatTime(time)} marked FULL`
+        );
       }
     } catch (error) {
       console.error(error);
       toast.error("Could not update slot");
     }
   };
-
-  const formatTime = (time) => {
-    const [hourString, minute] = time.split(":");
-    let hour = parseInt(hourString, 10);
-
-    const suffix = hour >= 12 ? "PM" : "AM";
-
-    if (hour === 0) {
-      hour = 12;
-    } else if (hour > 12) {
-      hour -= 12;
-    }
-
-    return `${hour}:${minute} ${suffix}`;
-  };
-
-  const lunchSlots = slots.filter((time) => {
-    const [hour, minute] = time.split(":").map(Number);
-
-    return (
-      hour < 15 ||
-      (hour === 15 && minute === 0)
-    );
-  });
-
-  const dinnerSlots = slots.filter((time) => {
-    const [hour] = time.split(":").map(Number);
-
-    return hour >= 19;
-  });
 
   const renderSlot = (time) => {
     const isFull = fullSlots.includes(time);
@@ -520,8 +502,8 @@ function ReservationSlotsManager() {
         </div>
 
         <div className="text-sm text-[color:var(--wood)]/60">
-          Mark individual reservation times as FULL when you
-          no longer want customers to book them.
+          Select a date and mark individual time slots as
+          FULL or AVAILABLE.
         </div>
       </div>
 
@@ -603,7 +585,10 @@ function MenuManager() {
         editing
       );
     } else {
-      await api.post("/admin/menu", editing);
+      await api.post(
+        "/admin/menu",
+        editing
+      );
     }
 
     setEditing(null);
@@ -614,7 +599,9 @@ function MenuManager() {
   const del = async (i) => {
     if (!window.confirm("Delete dish?")) return;
 
-    await api.delete(`/admin/menu/${i.id}`);
+    await api.delete(
+      `/admin/menu/${i.id}`
+    );
 
     load();
   };
@@ -623,10 +610,13 @@ function MenuManager() {
     setGenId(i.id);
 
     try {
-      await api.post("/admin/generate-image", {
-        prompt: `${i.name} — ${i.description}`,
-        item_id: i.id,
-      });
+      await api.post(
+        "/admin/generate-image",
+        {
+          prompt: `${i.name} — ${i.description}`,
+          item_id: i.id,
+        }
+      );
 
       toast.success("Image generated");
       load();
@@ -750,7 +740,6 @@ function MenuManager() {
                   name: e.target.value,
                 })
               }
-              data-testid="menu-edit-name"
             />
 
             <input
@@ -763,7 +752,6 @@ function MenuManager() {
                   category: e.target.value,
                 })
               }
-              data-testid="menu-edit-category"
             />
 
             <textarea
@@ -777,7 +765,6 @@ function MenuManager() {
                   description: e.target.value,
                 })
               }
-              data-testid="menu-edit-desc"
             />
 
             <input
@@ -788,10 +775,11 @@ function MenuManager() {
               onChange={(e) =>
                 setEditing({
                   ...editing,
-                  price: parseFloat(e.target.value),
+                  price: parseFloat(
+                    e.target.value
+                  ),
                 })
               }
-              data-testid="menu-edit-price"
             />
 
             <input
@@ -837,7 +825,9 @@ function MenuManager() {
             <div className="flex gap-2 justify-end">
               <button
                 className="btn-outline-gold"
-                onClick={() => setEditing(null)}
+                onClick={() =>
+                  setEditing(null)
+                }
               >
                 Cancel
               </button>
@@ -845,7 +835,6 @@ function MenuManager() {
               <button
                 className="btn-primary"
                 onClick={save}
-                data-testid="menu-edit-save"
               >
                 Save
               </button>
@@ -876,13 +865,8 @@ function SettingsPanel() {
   };
 
   return (
-    <div
-      className="space-y-3"
-      data-testid="settings-panel"
-    >
-      <label className="eyebrow">
-        Address
-      </label>
+    <div className="space-y-3" data-testid="settings-panel">
+      <label className="eyebrow">Address</label>
 
       <textarea
         rows="2"
@@ -894,7 +878,6 @@ function SettingsPanel() {
             address: e.target.value,
           })
         }
-        data-testid="settings-address"
       />
 
       <label className="eyebrow">
@@ -913,12 +896,9 @@ function SettingsPanel() {
               .filter(Boolean),
           })
         }
-        data-testid="settings-phones"
       />
 
-      <label className="eyebrow">
-        Email
-      </label>
+      <label className="eyebrow">Email</label>
 
       <input
         className="w-full p-2 border"
@@ -929,7 +909,6 @@ function SettingsPanel() {
             email: e.target.value,
           })
         }
-        data-testid="settings-email"
       />
 
       <label className="eyebrow">
@@ -960,7 +939,6 @@ function SettingsPanel() {
             map_embed_url: e.target.value,
           })
         }
-        data-testid="settings-map"
       />
 
       <div className="eyebrow mt-4">
@@ -1065,7 +1043,6 @@ function SettingsPanel() {
       <button
         className="btn-primary"
         onClick={save}
-        data-testid="settings-save"
       >
         Save Settings
       </button>
@@ -1137,11 +1114,8 @@ function GenericCRUD({
         <button
           className="btn-primary"
           onClick={() =>
-            setEdit({
-              ...defaults,
-            })
+            setEdit({ ...defaults })
           }
-          data-testid={`${testid}-add`}
         >
           + Add
         </button>
@@ -1191,9 +1165,7 @@ function GenericCRUD({
         >
           <div
             className="bg-white p-6 max-w-lg w-full space-y-3 max-h-[85vh] overflow-y-auto"
-            onClick={(e) =>
-              e.stopPropagation()
-            }
+            onClick={(e) => e.stopPropagation()}
           >
             <div className="font-serif-display text-2xl">
               {title}
@@ -1227,9 +1199,7 @@ function GenericCRUD({
                   <textarea
                     rows="4"
                     className="w-full p-2 border"
-                    value={(edit[f.k] || []).join(
-                      "\n"
-                    )}
+                    value={(edit[f.k] || []).join("\n")}
                     onChange={(e) =>
                       setEdit({
                         ...edit,
@@ -1287,9 +1257,7 @@ function GenericCRUD({
             <div className="flex gap-2 justify-end">
               <button
                 className="btn-outline-gold"
-                onClick={() =>
-                  setEdit(null)
-                }
+                onClick={() => setEdit(null)}
               >
                 Cancel
               </button>
@@ -1309,7 +1277,7 @@ function GenericCRUD({
 }
 
 /* =========================================================
-   TABS
+   ADMIN TABS
 ========================================================= */
 
 const TABS = [
@@ -1317,42 +1285,52 @@ const TABS = [
     key: "bookings",
     label: "Reservations",
   },
+
   {
     key: "reservation-slots",
     label: "Reservation Slots",
   },
+
   {
     key: "content",
     label: "Page Content",
   },
+
   {
     key: "menu",
     label: "Menu",
   },
+
   {
     key: "settings",
     label: "Global Settings",
   },
+
   {
     key: "recognition",
     label: "Why Chandigarh",
   },
+
   {
     key: "offers",
     label: "Offers",
   },
+
   {
     key: "membership",
     label: "Membership",
   },
+
   {
     key: "gallery",
     label: "Gallery",
   },
+
   {
     key: "enquiries",
     label: "Enquiries",
   },
+
   {
     key: "waitlist",
     label: "Waitlist",
@@ -1488,8 +1466,7 @@ function Dashboard() {
                 },
                 {
                   k: "icon",
-                  label:
-                    "Icon (star/award/heart)",
+                  label: "Icon (star/award/heart)",
                 },
                 {
                   k: "order",
@@ -1726,7 +1703,7 @@ function WaitlistPanel() {
 }
 
 /* =========================================================
-   EXPORT
+   ADMIN
 ========================================================= */
 
 export default function Admin() {
