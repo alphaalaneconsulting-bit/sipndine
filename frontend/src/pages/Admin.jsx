@@ -152,7 +152,9 @@ function ContentEditor() {
         ))}
       </div>
 
-      <label className="eyebrow">Eyebrow</label>
+      <label className="eyebrow">
+        Eyebrow
+      </label>
 
       <input
         className="w-full p-2 border"
@@ -163,7 +165,9 @@ function ContentEditor() {
         data-testid="content-eyebrow"
       />
 
-      <label className="eyebrow">Title</label>
+      <label className="eyebrow">
+        Title
+      </label>
 
       <input
         className="w-full p-2 border"
@@ -174,7 +178,9 @@ function ContentEditor() {
         data-testid="content-title"
       />
 
-      <label className="eyebrow">Hero Image URL</label>
+      <label className="eyebrow">
+        Hero Image URL
+      </label>
 
       <input
         className="w-full p-2 border"
@@ -185,7 +191,9 @@ function ContentEditor() {
         data-testid="content-hero"
       />
 
-      <label className="eyebrow">Intro</label>
+      <label className="eyebrow">
+        Intro
+      </label>
 
       <textarea
         rows="3"
@@ -197,7 +205,9 @@ function ContentEditor() {
         data-testid="content-intro"
       />
 
-      <label className="eyebrow">Body HTML (rich text)</label>
+      <label className="eyebrow">
+        Body HTML (rich text)
+      </label>
 
       <textarea
         rows="10"
@@ -219,10 +229,6 @@ function ContentEditor() {
     </div>
   );
 }
-
-/* =========================================================
-   RESERVATIONS
-========================================================= */
 
 function BookingsManager() {
   const [items, setItems] = useState([]);
@@ -292,6 +298,7 @@ function BookingsManager() {
               <button
                 className="btn-outline-gold text-xs px-3 py-1"
                 onClick={() => setStatus(b, "confirmed")}
+                data-testid={`booking-confirm-${b.id}`}
               >
                 Confirm
               </button>
@@ -299,6 +306,7 @@ function BookingsManager() {
               <button
                 className="btn-outline-gold text-xs px-3 py-1"
                 onClick={() => setStatus(b, "cancelled")}
+                data-testid={`booking-cancel-${b.id}`}
               >
                 Cancel
               </button>
@@ -306,6 +314,7 @@ function BookingsManager() {
               <button
                 className="text-xs text-red-700 underline"
                 onClick={() => del(b)}
+                data-testid={`booking-delete-${b.id}`}
               >
                 Delete
               </button>
@@ -323,126 +332,86 @@ function BookingsManager() {
   );
 }
 
+
 /* =========================================================
-   RESERVATION SLOT MANAGEMENT
-========================================================= */
+   RESERVATION SLOTS MANAGER
+   ========================================================= */
 
 function ReservationSlotsManager() {
-  const [date, setDate] = useState(() => {
-    const now = new Date();
-
-    const year = now.getFullYear();
-    const month = String(now.getMonth() + 1).padStart(2, "0");
-    const day = String(now.getDate()).padStart(2, "0");
-
-    return `${year}-${month}-${day}`;
-  });
-
+  const [date, setDate] = useState("");
   const [fullSlots, setFullSlots] = useState([]);
   const [loading, setLoading] = useState(false);
-
-  const formatTime = (time) => {
-    const [hourString, minute] = time.split(":");
-
-    let hour = parseInt(hourString, 10);
-
-    const suffix = hour >= 12 ? "PM" : "AM";
-
-    if (hour === 0) {
-      hour = 12;
-    } else if (hour > 12) {
-      hour -= 12;
-    }
-
-    return `${hour}:${minute} ${suffix}`;
-  };
 
   const generateSlots = () => {
     const slots = [];
 
-    const addSlots = (
-      startHour,
-      startMinute,
-      endHour,
-      endMinute
-    ) => {
-      let hour = startHour;
-      let minute = startMinute;
+    // Lunch: 11:30 AM to 3:00 PM
+    for (let hour = 11; hour <= 15; hour++) {
+      for (const minute of [0, 30]) {
+        if (hour === 11 && minute === 0) continue;
+        if (hour === 15 && minute === 30) continue;
 
-      while (
-        hour < endHour ||
-        (hour === endHour && minute <= endMinute)
-      ) {
-        slots.push(
-          `${String(hour).padStart(2, "0")}:${String(
-            minute
-          ).padStart(2, "0")}`
-        );
+        const time = `${String(hour).padStart(2, "0")}:${String(
+          minute
+        ).padStart(2, "0")}`;
 
-        minute += 30;
-
-        if (minute >= 60) {
-          minute -= 60;
-          hour += 1;
-        }
+        slots.push(time);
       }
-    };
+    }
 
-    // Lunch: 11:30 AM - 3:00 PM
-    addSlots(11, 30, 15, 0);
+    // Dinner: 7:00 PM to 11:00 PM
+    for (let hour = 19; hour <= 23; hour++) {
+      for (const minute of [0, 30]) {
+        if (hour === 23 && minute === 30) continue;
 
-    // Dinner: 7:00 PM - 11:00 PM
-    addSlots(19, 0, 23, 0);
+        const time = `${String(hour).padStart(2, "0")}:${String(
+          minute
+        ).padStart(2, "0")}`;
+
+        slots.push(time);
+      }
+    }
 
     return slots;
   };
 
   const slots = generateSlots();
 
-  const lunchSlots = slots.filter((time) => {
-    const [hour] = time.split(":").map(Number);
-    return hour < 15;
-  });
-
-  const dinnerSlots = slots.filter((time) => {
-    const [hour] = time.split(":").map(Number);
-    return hour >= 19;
-  });
-
-  const loadSlots = async () => {
-    if (!date) return;
+  const loadSlots = async (selectedDate) => {
+    if (!selectedDate) {
+      setFullSlots([]);
+      return;
+    }
 
     setLoading(true);
 
     try {
       const response = await api.get(
-        `/admin/booking-slots?date=${date}`
+        `/admin/booking-slots?date=${selectedDate}`
       );
 
       setFullSlots(
-        response.data
-          .filter((slot) => slot.full)
-          .map((slot) => slot.time)
+        response.data.map((slot) => slot.time)
       );
     } catch (error) {
-      console.error(error);
       toast.error("Could not load reservation slots");
     }
 
     setLoading(false);
   };
 
-  useEffect(() => {
-    loadSlots();
-  }, [date]);
-
   const toggleSlot = async (time) => {
+    if (!date) {
+      toast.error("Please select a date first");
+      return;
+    }
+
     const isFull = fullSlots.includes(time);
 
     try {
       await api.put("/admin/booking-slots", {
-        date,
-        time,
+        date: date,
+        time: time,
         full: !isFull,
       });
 
@@ -452,7 +421,7 @@ function ReservationSlotsManager() {
         );
 
         toast.success(
-          `${formatTime(time)} is available`
+          `${formatTime(time)} is available again`
         );
       } else {
         setFullSlots([
@@ -465,10 +434,36 @@ function ReservationSlotsManager() {
         );
       }
     } catch (error) {
-      console.error(error);
-      toast.error("Could not update slot");
+      toast.error("Could not update reservation slot");
     }
   };
+
+  const formatTime = (time) => {
+    const [hour, minute] = time
+      .split(":")
+      .map(Number);
+
+    const suffix = hour >= 12 ? "PM" : "AM";
+
+    const displayHour = hour % 12 || 12;
+
+    return `${displayHour}:${String(minute).padStart(
+      2,
+      "0"
+    )} ${suffix}`;
+  };
+
+  const lunchSlots = slots.filter((time) => {
+    const [hour] = time.split(":").map(Number);
+
+    return hour >= 11 && hour <= 15;
+  });
+
+  const dinnerSlots = slots.filter((time) => {
+    const [hour] = time.split(":").map(Number);
+
+    return hour >= 19 && hour <= 23;
+  });
 
   const renderSlot = (time) => {
     const isFull = fullSlots.includes(time);
@@ -477,17 +472,17 @@ function ReservationSlotsManager() {
       <button
         key={time}
         onClick={() => toggleSlot(time)}
-        className={`p-3 border text-sm font-medium transition ${
+        className={`p-4 border text-center transition ${
           isFull
             ? "bg-red-700 text-white border-red-700"
-            : "bg-white border-[color:var(--gold)]/40 hover:bg-[color:var(--cream-muted)]"
+            : "bg-white hover:bg-[color:var(--cream-muted)] border-[color:var(--gold)]/40"
         }`}
       >
-        <div className="font-serif-display text-lg">
+        <div className="font-semibold">
           {formatTime(time)}
         </div>
 
-        <div className="text-[10px] uppercase tracking-widest mt-1">
+        <div className="text-xs uppercase tracking-widest mt-1">
           {isFull ? "FULL" : "AVAILABLE"}
         </div>
       </button>
@@ -497,17 +492,17 @@ function ReservationSlotsManager() {
   return (
     <div data-testid="reservation-slots-manager">
       <div className="mb-6">
-        <div className="font-serif-display text-2xl mb-1">
+        <div className="font-serif-display text-2xl mb-2">
           Reservation Slots
         </div>
 
         <div className="text-sm text-[color:var(--wood)]/60">
-          Select a date and mark individual time slots as
-          FULL or AVAILABLE.
+          Select a date and mark individual reservation
+          times as FULL.
         </div>
       </div>
 
-      <div className="border p-4 mb-6 bg-[color:var(--cream-muted)]">
+      <div className="mb-8">
         <label className="eyebrow block mb-2">
           Select Date
         </label>
@@ -515,53 +510,61 @@ function ReservationSlotsManager() {
         <input
           type="date"
           value={date}
-          onChange={(e) => setDate(e.target.value)}
-          className="p-3 border bg-white"
+          onChange={(e) => {
+            const selectedDate = e.target.value;
+
+            setDate(selectedDate);
+            loadSlots(selectedDate);
+          }}
+          className="p-3 border border-[color:var(--gold)]/40"
         />
       </div>
 
-      {loading ? (
+      {!date && (
         <div className="italic text-[color:var(--wood)]/50">
-          Loading slots...
+          Select a date to manage its reservation slots.
         </div>
-      ) : (
+      )}
+
+      {date && (
         <>
-          <div className="mb-8">
-            <div className="eyebrow mb-3">
-              Lunch · 11:30 AM – 3:00 PM
+          {loading ? (
+            <div>
+              Loading slots...
             </div>
+          ) : (
+            <>
+              <div className="mb-8">
+                <div className="eyebrow mb-3">
+                  Lunch · 11:30 AM – 3:00 PM
+                </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2">
-              {lunchSlots.map(renderSlot)}
-            </div>
-          </div>
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+                  {lunchSlots.map(renderSlot)}
+                </div>
+              </div>
 
-          <div>
-            <div className="eyebrow mb-3">
-              Dinner · 7:00 PM – 11:00 PM
-            </div>
+              <div>
+                <div className="eyebrow mb-3">
+                  Dinner · 7:00 PM – 11:00 PM
+                </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2">
-              {dinnerSlots.map(renderSlot)}
-            </div>
-          </div>
-
-          <div className="mt-6 text-xs text-[color:var(--wood)]/60">
-            <span className="inline-block w-3 h-3 bg-white border mr-2" />
-            Available
-
-            <span className="inline-block w-3 h-3 bg-red-700 ml-5 mr-2" />
-            Full
-          </div>
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+                  {dinnerSlots.map(renderSlot)}
+                </div>
+              </div>
+            </>
+          )}
         </>
       )}
     </div>
   );
 }
 
+
 /* =========================================================
-   MENU
-========================================================= */
+   MENU MANAGER
+   ========================================================= */
 
 function MenuManager() {
   const [items, setItems] = useState([]);
@@ -585,10 +588,7 @@ function MenuManager() {
         editing
       );
     } else {
-      await api.post(
-        "/admin/menu",
-        editing
-      );
+      await api.post("/admin/menu", editing);
     }
 
     setEditing(null);
@@ -599,10 +599,7 @@ function MenuManager() {
   const del = async (i) => {
     if (!window.confirm("Delete dish?")) return;
 
-    await api.delete(
-      `/admin/menu/${i.id}`
-    );
-
+    await api.delete(`/admin/menu/${i.id}`);
     load();
   };
 
@@ -610,13 +607,10 @@ function MenuManager() {
     setGenId(i.id);
 
     try {
-      await api.post(
-        "/admin/generate-image",
-        {
-          prompt: `${i.name} — ${i.description}`,
-          item_id: i.id,
-        }
-      );
+      await api.post("/admin/generate-image", {
+        prompt: `${i.name} — ${i.description}`,
+        item_id: i.id,
+      });
 
       toast.success("Image generated");
       load();
@@ -740,6 +734,7 @@ function MenuManager() {
                   name: e.target.value,
                 })
               }
+              data-testid="menu-edit-name"
             />
 
             <input
@@ -752,6 +747,7 @@ function MenuManager() {
                   category: e.target.value,
                 })
               }
+              data-testid="menu-edit-category"
             />
 
             <textarea
@@ -765,6 +761,7 @@ function MenuManager() {
                   description: e.target.value,
                 })
               }
+              data-testid="menu-edit-desc"
             />
 
             <input
@@ -775,11 +772,10 @@ function MenuManager() {
               onChange={(e) =>
                 setEditing({
                   ...editing,
-                  price: parseFloat(
-                    e.target.value
-                  ),
+                  price: parseFloat(e.target.value),
                 })
               }
+              data-testid="menu-edit-price"
             />
 
             <input
@@ -825,9 +821,7 @@ function MenuManager() {
             <div className="flex gap-2 justify-end">
               <button
                 className="btn-outline-gold"
-                onClick={() =>
-                  setEditing(null)
-                }
+                onClick={() => setEditing(null)}
               >
                 Cancel
               </button>
@@ -835,6 +829,7 @@ function MenuManager() {
               <button
                 className="btn-primary"
                 onClick={save}
+                data-testid="menu-edit-save"
               >
                 Save
               </button>
@@ -846,9 +841,10 @@ function MenuManager() {
   );
 }
 
+
 /* =========================================================
    SETTINGS
-========================================================= */
+   ========================================================= */
 
 function SettingsPanel() {
   const [s, setS] = useState(null);
@@ -866,7 +862,9 @@ function SettingsPanel() {
 
   return (
     <div className="space-y-3" data-testid="settings-panel">
-      <label className="eyebrow">Address</label>
+      <label className="eyebrow">
+        Address
+      </label>
 
       <textarea
         rows="2"
@@ -878,6 +876,7 @@ function SettingsPanel() {
             address: e.target.value,
           })
         }
+        data-testid="settings-address"
       />
 
       <label className="eyebrow">
@@ -896,9 +895,12 @@ function SettingsPanel() {
               .filter(Boolean),
           })
         }
+        data-testid="settings-phones"
       />
 
-      <label className="eyebrow">Email</label>
+      <label className="eyebrow">
+        Email
+      </label>
 
       <input
         className="w-full p-2 border"
@@ -909,6 +911,7 @@ function SettingsPanel() {
             email: e.target.value,
           })
         }
+        data-testid="settings-email"
       />
 
       <label className="eyebrow">
@@ -939,6 +942,7 @@ function SettingsPanel() {
             map_embed_url: e.target.value,
           })
         }
+        data-testid="settings-map"
       />
 
       <div className="eyebrow mt-4">
@@ -955,7 +959,6 @@ function SettingsPanel() {
             value={h.day}
             onChange={(e) => {
               const arr = [...s.hours];
-
               arr[i] = {
                 ...h,
                 day: e.target.value,
@@ -973,7 +976,6 @@ function SettingsPanel() {
             value={h.hours}
             onChange={(e) => {
               const arr = [...s.hours];
-
               arr[i] = {
                 ...h,
                 hours: e.target.value,
@@ -1043,6 +1045,7 @@ function SettingsPanel() {
       <button
         className="btn-primary"
         onClick={save}
+        data-testid="settings-save"
       >
         Save Settings
       </button>
@@ -1050,9 +1053,10 @@ function SettingsPanel() {
   );
 }
 
+
 /* =========================================================
    GENERIC CRUD
-========================================================= */
+   ========================================================= */
 
 function GenericCRUD({
   endpoint,
@@ -1113,9 +1117,8 @@ function GenericCRUD({
 
         <button
           className="btn-primary"
-          onClick={() =>
-            setEdit({ ...defaults })
-          }
+          onClick={() => setEdit({ ...defaults })}
+          data-testid={`${testid}-add`}
         >
           + Add
         </button>
@@ -1276,70 +1279,62 @@ function GenericCRUD({
   );
 }
 
+
 /* =========================================================
-   ADMIN TABS
-========================================================= */
+   TABS
+   ========================================================= */
 
 const TABS = [
   {
     key: "bookings",
     label: "Reservations",
   },
-
   {
     key: "reservation-slots",
     label: "Reservation Slots",
   },
-
   {
     key: "content",
     label: "Page Content",
   },
-
   {
     key: "menu",
     label: "Menu",
   },
-
   {
     key: "settings",
     label: "Global Settings",
   },
-
   {
     key: "recognition",
     label: "Why Chandigarh",
   },
-
   {
     key: "offers",
     label: "Offers",
   },
-
   {
     key: "membership",
     label: "Membership",
   },
-
   {
     key: "gallery",
     label: "Gallery",
   },
-
   {
     key: "enquiries",
     label: "Enquiries",
   },
-
   {
     key: "waitlist",
     label: "Waitlist",
   },
 ];
 
+
 /* =========================================================
    DASHBOARD
-========================================================= */
+   ========================================================= */
 
 function Dashboard() {
   const [tab, setTab] = useState("bookings");
@@ -1366,24 +1361,20 @@ function Dashboard() {
             height="42"
             aria-hidden
           >
-            {Array.from({ length: 22 }).map(
-              (_, i) => (
-                <g
-                  key={i}
-                  transform={`rotate(${
-                    (360 / 22) * i
-                  } 100 100)`}
-                >
-                  <path
-                    d="M100 12 C 96 30 96 50 100 62 C 104 50 104 30 100 12 Z"
-                    fill="none"
-                    stroke="#C5A059"
-                    strokeWidth="3.2"
-                    strokeLinejoin="round"
-                  />
-                </g>
-              )
-            )}
+            {Array.from({ length: 22 }).map((_, i) => (
+              <g
+                key={i}
+                transform={`rotate(${(360 / 22) * i} 100 100)`}
+              >
+                <path
+                  d="M100 12 C 96 30 96 50 100 62 C 104 50 104 30 100 12 Z"
+                  fill="none"
+                  stroke="#C5A059"
+                  strokeWidth="3.2"
+                  strokeLinejoin="round"
+                />
+              </g>
+            ))}
           </svg>
 
           <div>
@@ -1466,7 +1457,8 @@ function Dashboard() {
                 },
                 {
                   k: "icon",
-                  label: "Icon (star/award/heart)",
+                  label:
+                    "Icon (star/award/heart)",
                 },
                 {
                   k: "order",
@@ -1620,9 +1612,10 @@ function Dashboard() {
   );
 }
 
+
 /* =========================================================
    ENQUIRIES
-========================================================= */
+   ========================================================= */
 
 function EnquiriesPanel() {
   const [items, setItems] = useState([]);
@@ -1669,9 +1662,10 @@ function EnquiriesPanel() {
   );
 }
 
+
 /* =========================================================
    WAITLIST
-========================================================= */
+   ========================================================= */
 
 function WaitlistPanel() {
   const [items, setItems] = useState([]);
@@ -1702,9 +1696,10 @@ function WaitlistPanel() {
   );
 }
 
+
 /* =========================================================
    ADMIN
-========================================================= */
+   ========================================================= */
 
 export default function Admin() {
   const { user, ready } = useAuth();
