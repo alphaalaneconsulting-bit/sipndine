@@ -961,168 +961,2366 @@ app.add_middleware(
 
 # ---------- seed on startup ----------
 SEED_MENU = [
+
+    # =====================================================
+    # SIZZLERS
+    # =====================================================
+
     (
-        "Dahi Ke Kebab",
-        "Starters",
-        "Spiced hung yogurt kebabs, crisp outside, silken within",
-        425,
+        "Vegetable Steak",
+        "Sizzlers",
+        "Assorted vegetables served with sauce and vegetables.",
+        704,
+        True,
+        False
+    ),
+    (
+        "Paneer Shashlik",
+        "Sizzlers",
+        "Paneer cooked in a spicy red sauce served with baked vegetables.",
+        749,
+        True,
+        False
+    ),
+    (
+        "Chicken Shashlik",
+        "Sizzlers",
+        "Chicken steak served with vegetables.",
+        828,
+        False,
+        False
+    ),
+    (
+        "Sizzling Chicken Chunks",
+        "Sizzlers",
+        "Chicken chunks with vegetables served sizzling.",
+        828,
+        False,
+        False
+    ),
+
+
+    # =====================================================
+    # SANDWICHES
+    # =====================================================
+
+    (
+        "Chicken S/W",
+        "Sandwiches",
+        "",
+        429,
+        False,
+        False
+    ),
+    (
+        "Vegetable S/W",
+        "Sandwiches",
+        "",
+        379,
+        True,
+        False
+    ),
+    (
+        "Cheese S/W",
+        "Sandwiches",
+        "",
+        379,
+        True,
+        False
+    ),
+    (
+        "Egg S/W",
+        "Sandwiches",
+        "",
+        379,
+        False,
+        False
+    ),
+    (
+        "Plain Garlic Bread",
+        "Sandwiches",
+        "",
+        219,
+        True,
+        False
+    ),
+    (
+        "Garlic Bread with Cheese",
+        "Sandwiches",
+        "",
+        249,
+        True,
+        False
+    ),
+
+
+    # =====================================================
+    # PASTAS
+    # =====================================================
+
+    (
+        "Vegetarian Pasta",
+        "Pastas",
+        "Arrabita Sauce / Tomato",
+        436,
+        True,
+        False
+    ),
+    (
+        "Mushroom Pasta",
+        "Pastas",
+        "Arrabita Sauce / Tomato",
+        480,
+        True,
+        False
+    ),
+    (
+        "Chicken Pasta",
+        "Pastas",
+        "Arrabita Sauce / Tomato",
+        589,
+        False,
+        False
+    ),
+
+
+    # =====================================================
+    # CUTLETS
+    # =====================================================
+
+    (
+        "Pepper Cutlets",
+        "Cutlets",
+        "",
+        599,
+        False,
+        False
+    ),
+    (
+        "Vegetable Cutlets",
+        "Cutlets",
+        "",
+        391,
+        True,
+        False
+    ),
+    (
+        "Mutton Cutlets",
+        "Cutlets",
+        "",
+        727,
+        False,
+        False
+    ),
+    (
+        "Chicken Cutlets",
+        "Cutlets",
+        "",
+        682,
+        False,
+        False
+    ),
+
+
+    # =====================================================
+    # CHINESE — NON-VEGETARIAN
+    # =====================================================
+
+    (
+        "Chicken Schezwan",
+        "Chinese - Non-Vegetarian",
+        "",
+        794,
+        False,
+        False
+    ),
+    (
+        "Chicken in Black Pepper Sauce",
+        "Chinese - Non-Vegetarian",
+        "",
+        794,
+        False,
+        False
+    ),
+    (
+        "Lemon Chicken",
+        "Chinese - Non-Vegetarian",
+        "",
+        794,
+        False,
+        False
+    ),
+    (
+        "Garlic Chicken",
+        "Chinese - Non-Vegetarian",
+        "",
+        794,
+        False,
+        False
+    ),
+    (
+        "Honey Ginger Chicken",
+        "Chinese - Non-Vegetarian",
+        "",
+        794,
+        False,
+        False
+    ),
+    (
+        "Chicken Manchurian in Gravy",
+        "Chinese - Non-Vegetarian",
+        "",
+        794,
+        False,
+        False
+    ),
+    (
+        "Chicken Chilly in Dry",
+        "Chinese - Non-Vegetarian",
+        "",
+        794,
+        False,
+        False
+    ),
+    (
+        "Chicken Chilly in Gravy",
+        "Chinese - Non-Vegetarian",
+        "",
+        794,
+        False,
+        False
+    ),
+    (
+        "Chicken Sweet & Sour",
+        "Chinese - Non-Vegetarian",
+        "",
+        794,
+        False,
+        False
+    ),
+    (
+        "Kung Pao Chicken",
+        "Chinese - Non-Vegetarian",
+        "",
+        794,
+        False,
+        False
+    ),
+
+
+    # =====================================================
+    # CHINESE — VEGETARIAN
+    # =====================================================
+
+    (
+        "Boiled Vegetable",
+        "Chinese - Vegetarian",
+        "",
+        525,
+        True,
+        False
+    ),
+    (
+        "Baked Vegetable",
+        "Chinese - Vegetarian",
+        "",
+        525,
+        True,
+        False
+    ),
+    (
+        "Almond Vegetable",
+        "Chinese - Vegetarian",
+        "",
+        525,
+        True,
+        False
+    ),
+    (
+        "Vegetable Manchurian in Gravy",
+        "Chinese - Vegetarian",
+        "",
+        648,
+        True,
+        False
+    ),
+    (
+        "Chilly Mushroom in Gravy",
+        "Chinese - Vegetarian",
+        "",
+        648,
+        True,
+        False
+    ),
+    (
+        "Cheese Chilly in Gravy",
+        "Chinese - Vegetarian",
+        "",
+        648,
+        True,
+        False
+    ),
+    (
+        "Vegetable Sweet & Sour",
+        "Chinese - Vegetarian",
+        "",
+        525,
+        True,
+        False
+    ),
+    (
+        "Vegetables in Schezwan Sauce",
+        "Chinese - Vegetarian",
+        "",
+        525,
+        True,
+        False
+    ),
+
+
+    # =====================================================
+    # CHINESE — CHOPSEY
+    # =====================================================
+
+    (
+        "Vegetable Chopsuey",
+        "Chinese - Chopsey",
+        "",
+        548,
+        True,
+        False
+    ),
+    (
+        "Chicken Chopsuey",
+        "Chinese - Chopsey",
+        "",
+        749,
+        False,
+        False
+    ),
+    (
+        "American Chopsuey",
+        "Chinese - Chopsey",
+        "",
+        749,
+        False,
+        False
+    ),
+
+
+    # =====================================================
+    # CHINESE — NOODLES
+    # =====================================================
+
+    (
+        "Chicken Hakka Noodles",
+        "Chinese - Noodles",
+        "",
+        525,
+        False,
+        False
+    ),
+    (
+        "Vegetable Hakka Noodles",
+        "Chinese - Noodles",
+        "",
+        436,
+        True,
+        False
+    ),
+    (
+        "Chicken Chow Mein",
+        "Chinese - Noodles",
+        "",
+        525,
+        False,
+        False
+    ),
+    (
+        "Vegetable Chow Mein",
+        "Chinese - Noodles",
+        "",
+        436,
+        True,
+        False
+    ),
+    (
+        "Chilly Garlic Noodles",
+        "Chinese - Noodles",
+        "",
+        436,
+        True,
+        False
+    ),
+
+
+    # =====================================================
+    # CHINESE — RICE
+    # =====================================================
+
+    (
+        "Chicken Fried Rice",
+        "Chinese - Rice",
+        "",
+        459,
+        False,
+        False
+    ),
+    (
+        "Golden Chicken Rice",
+        "Chinese - Rice",
+        "",
+        459,
+        False,
+        False
+    ),
+    (
+        "Fish Fried Rice",
+        "Chinese - Rice",
+        "",
+        519,
+        False,
+        False
+    ),
+    (
+        "Prawn Fried Rice",
+        "Chinese - Rice",
+        "",
+        869,
+        False,
+        False
+    ),
+    (
+        "Egg Fried Rice",
+        "Chinese - Rice",
+        "",
+        389,
+        False,
+        False
+    ),
+    (
+        "Vegetable Fried Rice",
+        "Chinese - Rice",
+        "",
+        319,
+        True,
+        False
+    ),
+
+
+    # =====================================================
+    # STARTERS — MEAT & POULTRY
+    # =====================================================
+
+    (
+        "Chilly Chicken (With Bone)",
+        "Starters - Meat & Poultry",
+        "Pieces of fried chicken cooked in capsicum, onions and Chinese herbs.",
+        760,
+        False,
+        False
+    ),
+    (
+        "Chilly Chicken (Boneless)",
+        "Starters - Meat & Poultry",
+        "Boneless pieces of fried chicken cooked in capsicum and onions.",
+        783,
+        False,
+        False
+    ),
+    (
+        "Chicken Tandoori",
+        "Starters - Meat & Poultry",
+        "Tender chicken marinated in yoghurt and spices, grilled in the tandoor.",
+        727,
+        False,
+        True
+    ),
+    (
+        "Chicken Tangri Kabab",
+        "Starters - Meat & Poultry",
+        "Chicken drumsticks marinated in yoghurt and spices, grilled in the tandoor.",
+        794,
+        False,
+        False
+    ),
+    (
+        "Chicken Kalmi Kabab",
+        "Starters - Meat & Poultry",
+        "Chicken drumsticks delicately marinated with traditional Indian spices and broiled.",
+        760,
+        False,
+        False
+    ),
+    (
+        "Chicken Tikka",
+        "Starters - Meat & Poultry",
+        "Chicken nuggets marinated in tandoori masala and grilled in the tandoor.",
+        783,
+        False,
+        True
+    ),
+    (
+        "Murg Malai Tikka",
+        "Starters - Meat & Poultry",
+        "Chicken nuggets marinated in tandoori masala and grilled in the tandoor.",
+        783,
+        False,
+        True
+    ),
+    (
+        "Chicken Chakori Kabab",
+        "Starters - Meat & Poultry",
+        "A true delight where minced chicken is coated with a blend of spices.",
+        861,
+        False,
+        False
+    ),
+    (
+        "Chicken Seekh Kabab",
+        "Starters - Meat & Poultry",
+        "Finely minced chicken enhanced with fresh coriander and spices.",
+        760,
+        False,
+        False
+    ),
+    (
+        "Chicken Spring Roll",
+        "Starters - Meat & Poultry",
+        "Rolls consisting of a savoury mixture of chicken and vegetables rolled in a thin pancake and fried.",
+        760,
+        False,
+        False
+    ),
+    (
+        "Chicken Kurkib",
+        "Starters - Meat & Poultry",
+        "",
+        760,
+        False,
+        False
+    ),
+    (
+        "Non-Veg Platter",
+        "Starters - Meat & Poultry",
+        "",
+        1376,
+        False,
+        True
+    ),
+    (
+        "Chicken Manchurian",
+        "Starters - Meat & Poultry",
+        "Finely chopped minced chicken bound with some corn flour and served in a sauce.",
+        760,
+        False,
+        False
+    ),
+    (
+        "Chicken Lolly Pop",
+        "Starters - Meat & Poultry",
+        "Chicken wings shaped into lollipops, delicately spiced and fried crisp.",
+        760,
+        False,
+        False
+    ),
+    (
+        "Mutton Seekh Kabab",
+        "Starters - Meat & Poultry",
+        "Finely minced lamb enhanced with fresh coriander and spices.",
+        783,
+        False,
+        False
+    ),
+    (
+        "Honey Fried Chicken Wings",
+        "Starters - Meat & Poultry",
+        "Chicken wings flavoured in honey and barbecue sauce.",
+        760,
+        False,
+        False
+    ),
+    (
+        "Chicken Pakora",
+        "Starters - Meat & Poultry",
+        "Succulent chunks of chicken marinated in spices and deep fried.",
+        760,
+        False,
+        False
+    ),
+    (
+        "Chicken Salt & Pepper",
+        "Starters - Meat & Poultry",
+        "Chicken coated with light cornflour batter and sauteed in onions, green pepper, garlic, chilli and herbs.",
+        760,
+        False,
+        False
+    ),
+    (
+        "Lemon Chicken",
+        "Starters - Meat & Poultry",
+        "",
+        760,
+        False,
+        False
+    ),
+    (
+        "Afgani Chicken",
+        "Starters - Meat & Poultry",
+        "",
+        839,
+        False,
+        False
+    ),
+    (
+        "Egg Bhurjee",
+        "Starters - Meat & Poultry",
+        "",
+        279,
+        False,
+        False
+    ),
+    (
+        "Omelette",
+        "Starters - Meat & Poultry",
+        "",
+        279,
+        False,
+        False
+    ),
+    (
+        "Boiled Egg (Three Pcs)",
+        "Starters - Meat & Poultry",
+        "",
+        279,
+        False,
+        False
+    ),
+
+
+    # =====================================================
+    # STARTERS — VEGETARIAN
+    # =====================================================
+
+    (
+        "Paneer Tikka",
+        "Starters - Vegetarian",
+        "",
+        615,
         True,
         True
+    ),
+    (
+        "Paneer Haryali Tikka",
+        "Starters - Vegetarian",
+        "",
+        615,
+        True,
+        False
+    ),
+    (
+        "Paneer Achari Tikka",
+        "Starters - Vegetarian",
+        "",
+        615,
+        True,
+        False
+    ),
+    (
+        "Paneer Bahari Tikka",
+        "Starters - Vegetarian",
+        "",
+        615,
+        True,
+        False
+    ),
+    (
+        "Paneer Papadi",
+        "Starters - Vegetarian",
+        "",
+        615,
+        True,
+        False
+    ),
+    (
+        "Cheese Finger",
+        "Starters - Vegetarian",
+        "",
+        615,
+        True,
+        False
+    ),
+    (
+        "Paneer Pakora",
+        "Starters - Vegetarian",
+        "",
+        615,
+        True,
+        False
+    ),
+    (
+        "Paneer Roll",
+        "Starters - Vegetarian",
+        "",
+        615,
+        True,
+        False
+    ),
+    (
+        "Cheese Chilly Dry",
+        "Starters - Vegetarian",
+        "",
+        615,
+        True,
+        False
     ),
     (
         "Tandoori Broccoli",
-        "Starters",
-        "Charred florets with hung curd and cheddar glaze",
-        445,
+        "Starters - Vegetarian",
+        "",
+        604,
         True,
         False
     ),
     (
-        "Galouti Kebab",
-        "Starters",
-        "Silken minced lamb pattie with saffron & warak",
-        545,
-        False,
-        True
-    ),
-    (
-        "Murgh Malai Tikka",
-        "Tandoor",
-        "Cream & cheese marinated chicken, mildly spiced",
-        495,
-        False,
-        True
-    ),
-    (
-        "Sikandari Raan",
-        "Tandoor",
-        "Slow-cooked whole lamb leg with royal spices",
-        1250,
-        False,
-        True
-    ),
-    (
-        "Tandoori Prawns",
-        "Tandoor",
-        "Jumbo prawns in ajwain-cardamom marinade",
-        795,
-        False,
-        False
-    ),
-    (
-        "Paneer Butter Masala",
-        "Mains",
-        "Cottage cheese in silken tomato-fenugreek gravy",
-        465,
-        True,
-        True
-    ),
-    (
-        "Dal Sip 'n' Dine",
-        "Mains",
-        "Signature black lentils, 24-hour slow-simmered",
-        425,
-        True,
-        True
-    ),
-    (
-        "Butter Chicken",
-        "Mains",
-        "Classic Delhi-style, tomato-cashew, kissed with kasuri methi",
-        545,
-        False,
-        True
-    ),
-    (
-        "Laal Maas",
-        "Mains",
-        "Rajasthani fiery lamb curry with mathania chillies",
-        675,
-        False,
-        False
-    ),
-    (
-        "Awadhi Mutton Biryani",
-        "Biryani",
-        "Dum-cooked long-grain rice, saffron & rose",
-        595,
-        False,
-        True
-    ),
-    (
-        "Hyderabadi Chicken Biryani",
-        "Biryani",
-        "Kacchi style dum, mint & fried onions",
-        545,
-        False,
-        False
-    ),
-    (
-        "Vegetable Dum Biryani",
-        "Biryani",
-        "Aromatic seasonal veg biryani, dum-sealed",
-        445,
+        "Soya Malai Champ",
+        "Starters - Vegetarian",
+        "",
+        660,
         True,
         False
     ),
     (
-        "Truffle Naan",
-        "Breads",
-        "Butter naan with black truffle shavings",
+        "Soya Mint Champ",
+        "Starters - Vegetarian",
+        "",
+        660,
+        True,
+        False
+    ),
+    (
+        "Hara Bhara Kabab",
+        "Starters - Vegetarian",
+        "",
+        492,
+        True,
+        False
+    ),
+    (
+        "Veg. Platter",
+        "Starters - Vegetarian",
+        "",
+        1040,
+        True,
+        True
+    ),
+    (
+        "Honey Chilly Cauliflower",
+        "Starters - Vegetarian",
+        "",
+        368,
+        True,
+        False
+    ),
+    (
+        "Peanut Masala / Plain",
+        "Starters - Vegetarian",
+        "",
         245,
         True,
         False
     ),
     (
-        "Garlic Kulcha",
-        "Breads",
-        "Punjabi kulcha, roasted garlic & coriander",
-        145,
+        "Crispy Corn",
+        "Starters - Vegetarian",
+        "",
+        413,
+        True,
+        False
+    ),
+    (
+        "Vegetable Cocktail Kabab",
+        "Starters - Vegetarian",
+        "",
+        447,
+        True,
+        False
+    ),
+    (
+        "Punjabi Papad",
+        "Starters - Vegetarian",
+        "",
+        100,
+        True,
+        False
+    ),
+    (
+        "Fried Papad",
+        "Starters - Vegetarian",
+        "",
+        100,
+        True,
+        False
+    ),
+    (
+        "Masala Papad",
+        "Starters - Vegetarian",
+        "",
+        133,
+        True,
+        False
+    ),
+    (
+        "Potato Chips",
+        "Starters - Vegetarian",
+        "",
+        245,
+        True,
+        False
+    ),
+    (
+        "Mixed Pakora",
+        "Starters - Vegetarian",
+        "",
+        357,
+        True,
+        False
+    ),
+    (
+        "Peanut Plain",
+        "Starters - Vegetarian",
+        "",
+        245,
+        True,
+        False
+    ),
+    (
+        "Cheese Kabab",
+        "Starters - Vegetarian",
+        "",
+        615,
+        True,
+        False
+    ),
+    (
+        "Kurkuri Kabab",
+        "Starters - Vegetarian",
+        "",
+        447,
+        True,
+        False
+    ),
+    (
+        "Vegetable Seekh Kabab",
+        "Starters - Vegetarian",
+        "",
+        536,
+        True,
+        False
+    ),
+    (
+        "Stuffed Potato",
+        "Starters - Vegetarian",
+        "",
+        536,
+        True,
+        False
+    ),
+    (
+        "Mushroom Tikka",
+        "Starters - Vegetarian",
+        "",
+        615,
+        True,
+        False
+    ),
+    (
+        "Mushroom Achari Tikka",
+        "Starters - Vegetarian",
+        "",
+        615,
+        True,
+        False
+    ),
+    (
+        "Stuffed Mushroom",
+        "Starters - Vegetarian",
+        "",
+        660,
+        True,
+        False
+    ),
+    (
+        "Mushroom Chilly",
+        "Starters - Vegetarian",
+        "",
+        660,
+        True,
+        False
+    ),
+    (
+        "Vegetable Salt & Pepper",
+        "Starters - Vegetarian",
+        "",
+        447,
+        True,
+        False
+    ),
+    (
+        "Vegetable Manchurian",
+        "Starters - Vegetarian",
+        "",
+        447,
+        True,
+        False
+    ),
+    (
+        "Golden Fried Baby Corn",
+        "Starters - Vegetarian",
+        "",
+        615,
+        True,
+        False
+    ),
+    (
+        "Spinach & Cheese Spring Roll",
+        "Starters - Vegetarian",
+        "",
+        559,
+        True,
+        False
+    ),
+    (
+        "Vegetable Spring Roll",
+        "Starters - Vegetarian",
+        "",
+        536,
+        True,
+        False
+    ),
+    (
+        "Honey Potato",
+        "Starters - Vegetarian",
+        "",
+        368,
+        True,
+        False
+    ),
+    (
+        "Aloo Chana Chat",
+        "Starters - Vegetarian",
+        "",
+        391,
+        True,
+        False
+    ),
+    (
+        "Chana Chat",
+        "Starters - Vegetarian",
+        "",
+        447,
+        True,
+        False
+    ),
+    (
+        "Fried Aloo Chat",
+        "Starters - Vegetarian",
+        "",
+        301,
+        True,
+        False
+    ),
+    (
+        "Fruit Chat",
+        "Starters - Vegetarian",
+        "",
+        346,
+        True,
+        False
+    ),
+    (
+        "Corn Salad",
+        "Starters - Vegetarian",
+        "",
+        413,
+        True,
+        False
+    ),
+    (
+        "Bhalla Chat Papdi",
+        "Starters - Vegetarian",
+        "",
+        447,
+        True,
+        False
+    ),
+    (
+        "BharwaGolGappa",
+        "Starters - Vegetarian",
+        "",
+        301,
+        True,
+        False
+    ),
+    (
+        "Corn Chat",
+        "Starters - Vegetarian",
+        "",
+        413,
+        True,
+        False
+    ),
+
+
+    # =====================================================
+    # SEAFOOD STARTERS
+    # =====================================================
+
+    (
+        "Fish Tikka",
+        "Starters - Seafood",
+        "",
+        940,
+        False,
+        False
+    ),
+    (
+        "Fish Finger",
+        "Starters - Seafood",
+        "",
+        940,
+        False,
+        False
+    ),
+    (
+        "Lemon Fish",
+        "Starters - Seafood",
+        "",
+        940,
+        False,
+        False
+    ),
+    (
+        "Fish Chilly",
+        "Starters - Seafood",
+        "",
+        940,
+        False,
+        False
+    ),
+    (
+        "Golden Frien Fish",
+        "Starters - Seafood",
+        "",
+        940,
+        False,
+        False
+    ),
+    (
+        "Afgani Fish",
+        "Starters - Seafood",
+        "",
+        940,
+        False,
+        False
+    ),
+    (
+        "Fish Fry",
+        "Starters - Seafood",
+        "",
+        940,
+        False,
+        False
+    ),
+    (
+        "Fish Amritsari",
+        "Starters - Seafood",
+        "",
+        940,
+        False,
+        False
+    ),
+    (
+        "Golden Fried Prawns",
+        "Starters - Seafood",
+        "",
+        1679,
+        False,
+        False
+    ),
+    (
+        "Tandoori Prawns",
+        "Starters - Seafood",
+        "",
+        1679,
+        False,
+        False
+    ),
+    (
+        "Tandoori Pomfret",
+        "Starters - Seafood",
+        "",
+        996,
+        False,
+        False
+    ),
+
+
+    # =====================================================
+    # INDIAN NON-VEGETARIAN — CHICKEN
+    # =====================================================
+
+    (
+        "Karahi Chicken (Full/Half)",
+        "Indian Non-Vegetarian - Chicken",
+        "",
+        1220.00,
+        False,
+        True
+    ),
+    (
+        "Butter Chicken (Full/Half)",
+        "Indian Non-Vegetarian - Chicken",
+        "",
+        1220.00,
+        False,
+        True
+    ),
+    (
+        "Butter Chicken (Boneless)",
+        "Indian Non-Vegetarian - Chicken",
+        "",
+        1220.00,
+        False,
+        False
+    ),
+    (
+        "Chicken Musalam (Full/Half)",
+        "Indian Non-Vegetarian - Chicken",
+        "",
+        1220.00,
+        False,
+        False
+    ),
+    (
+        "Chicken Tikka Tak (Full/Half)",
+        "Indian Non-Vegetarian - Chicken",
+        "",
+        1220.00,
+        False,
+        False
+    ),
+    (
+        "Chicken Shahi",
+        "Indian Non-Vegetarian - Chicken",
+        "",
+        805,
+        False,
+        False
+    ),
+    (
+        "Chicken Tikka Lababdar",
+        "Indian Non-Vegetarian - Chicken",
+        "",
+        805,
+        False,
+        False
+    ),
+    (
+        "Achari Chicken",
+        "Indian Non-Vegetarian - Chicken",
+        "",
+        805,
+        False,
+        False
+    ),
+    (
+        "Chicken Dahiwala",
+        "Indian Non-Vegetarian - Chicken",
+        "",
+        805,
+        False,
+        False
+    ),
+    (
+        "Chicken Curry",
+        "Indian Non-Vegetarian - Chicken",
+        "",
+        805,
+        False,
+        False
+    ),
+    (
+        "Chicken Rahra",
+        "Indian Non-Vegetarian - Chicken",
+        "",
+        805,
+        False,
+        False
+    ),
+    (
+        "Chicken in Palak",
+        "Indian Non-Vegetarian - Chicken",
+        "",
+        805,
+        False,
+        False
+    ),
+    (
+        "Chicken Methi Malai",
+        "Indian Non-Vegetarian - Chicken",
+        "",
+        805,
+        False,
+        False
+    ),
+    (
+        "Afgani Chicken",
+        "Indian Non-Vegetarian - Chicken",
+        "",
+        805,
+        False,
+        False
+    ),
+    (
+        "Chicken Masala",
+        "Indian Non-Vegetarian - Chicken",
+        "",
+        805,
+        False,
+        False
+    ),
+
+
+    # =====================================================
+    # INDIAN NON-VEGETARIAN — MUTTON
+    # =====================================================
+
+    (
+        "Handi Meat",
+        "Indian Non-Vegetarian - Mutton",
+        "",
+        850,
+        False,
+        False
+    ),
+    (
+        "Mutton Curry",
+        "Indian Non-Vegetarian - Mutton",
+        "",
+        850,
+        False,
+        False
+    ),
+    (
+        "Mutton Rogan Josh",
+        "Indian Non-Vegetarian - Mutton",
+        "",
+        850,
+        False,
+        True
+    ),
+    (
+        "Mirchi Korma",
+        "Indian Non-Vegetarian - Mutton",
+        "",
+        850,
+        False,
+        False
+    ),
+    (
+        "Saag Meat",
+        "Indian Non-Vegetarian - Mutton",
+        "",
+        850,
+        False,
+        False
+    ),
+    (
+        "Rarha Meat",
+        "Indian Non-Vegetarian - Mutton",
+        "",
+        850,
+        False,
+        False
+    ),
+    (
+        "Mutton Yakhni",
+        "Indian Non-Vegetarian - Mutton",
+        "",
+        850,
+        False,
+        False
+    ),
+
+
+    # =====================================================
+    # INDIAN NON-VEGETARIAN — FISH
+    # =====================================================
+
+    (
+        "Fish Tomato",
+        "Indian Non-Vegetarian - Fish",
+        "",
+        940,
+        False,
+        False
+    ),
+    (
+        "Fish Curry",
+        "Indian Non-Vegetarian - Fish",
+        "",
+        940,
+        False,
+        False
+    ),
+    (
+        "Fish Goan Curry",
+        "Indian Non-Vegetarian - Fish",
+        "",
+        940,
+        False,
+        False
+    ),
+    (
+        "Banarsi Fish",
+        "Indian Non-Vegetarian - Fish",
+        "",
+        940,
+        False,
+        False
+    ),
+    (
+        "Egg Curry",
+        "Indian Non-Vegetarian - Fish",
+        "",
+        514,
+        False,
+        False
+    ),
+
+
+    # =====================================================
+    # INDIAN VEGETARIAN — CLEAR ITEMS
+    # =====================================================
+
+    (
+        "Paneer Do Pyaza",
+        "Indian Vegetarian",
+        "",
+        660,
+        True,
+        False
+    ),
+    (
+        "Paneer Butter Masala",
+        "Indian Vegetarian",
+        "",
+        660,
+        True,
+        True
+    ),
+    (
+        "Achari Paneer",
+        "Indian Vegetarian",
+        "",
+        660,
+        True,
+        False
+    ),
+    (
+        "Paneer Pasanda",
+        "Indian Vegetarian",
+        "",
+        660,
+        True,
+        False
+    ),
+    (
+        "Paneer Tikka Masala",
+        "Indian Vegetarian",
+        "",
+        660,
+        True,
+        False
+    ),
+    (
+        "Paneer Bhurji",
+        "Indian Vegetarian",
+        "",
+        660,
+        True,
+        False
+    ),
+    (
+        "Dal Paneer",
+        "Indian Vegetarian",
+        "",
+        660,
+        True,
+        False
+    ),
+    (
+        "Cheese Tomato",
+        "Indian Vegetarian",
+        "",
+        660,
+        True,
+        False
+    ),
+    (
+        "Shahi Paneer",
+        "Indian Vegetarian",
+        "",
+        660,
+        True,
+        False
+    ),
+    (
+        "Palak Paneer",
+        "Indian Vegetarian",
+        "",
+        660,
+        True,
+        False
+    ),
+    (
+        "Mutter Paneer",
+        "Indian Vegetarian",
+        "",
+        660,
+        True,
+        False
+    ),
+    (
+        "Khumb Do Pyaza",
+        "Indian Vegetarian",
+        "",
+        660,
+        True,
+        False
+    ),
+    (
+        "Mushroom Mutter",
+        "Indian Vegetarian",
+        "",
+        660,
+        True,
+        False
+    ),
+    (
+        "Mushroom Lazziz",
+        "Indian Vegetarian",
+        "",
+        660,
+        True,
+        False
+    ),
+    (
+        "Mushroom Capsicum Achari",
+        "Indian Vegetarian",
+        "",
+        660,
+        True,
+        False
+    ),
+    (
+        "Navratan Korma",
+        "Indian Vegetarian",
+        "",
+        682,
+        True,
+        False
+    ),
+    (
+        "Asparagus Korma",
+        "Indian Vegetarian",
+        "",
+        682,
+        True,
+        False
+    ),
+    (
+        "Malai Kofta",
+        "Indian Vegetarian",
+        "",
+        682,
+        True,
+        False
+    ),
+    (
+        "Paneer Kofta in Cashewnut Gravy",
+        "Indian Vegetarian",
+        "",
+        682,
+        True,
+        False
+    ),
+    (
+        "Mutter Methi",
+        "Indian Vegetarian",
+        "",
+        682,
+        True,
+        False
+    ),
+    (
+        "Palak Kofta",
+        "Indian Vegetarian",
+        "",
+        637,
+        True,
+        False
+    ),
+    (
+        "Palak Corn",
+        "Indian Vegetarian",
+        "",
+        637,
+        True,
+        False
+    ),
+    (
+        "Kulfi Bhindi",
+        "Indian Vegetarian",
+        "",
+        525,
+        True,
+        False
+    ),
+
+
+    # =====================================================
+    # INDIAN VEGETARIAN — RIGHT COLUMN
+    # =====================================================
+
+    (
+        "Dum Aloo Kashmiri",
+        "Indian Vegetarian",
+        "",
+        525,
+        True,
+        False
+    ),
+    (
+        "Dum Aloo Rajasthani",
+        "Indian Vegetarian",
+        "",
+        525,
+        True,
+        False
+    ),
+    (
+        "Chana Masala",
+        "Indian Vegetarian",
+        "",
+        536,
+        True,
+        False
+    ),
+    (
+        "Channa Peshawari",
+        "Indian Vegetarian",
+        "",
+        536,
+        True,
+        False
+    ),
+    (
+        "Dal Makhni",
+        "Indian Vegetarian",
+        "",
+        536,
+        True,
+        True
+    ),
+    (
+        "Dal Tadka",
+        "Indian Vegetarian",
+        "",
+        525,
+        True,
+        False
+    ),
+    (
+        "Mixed Vegetables",
+        "Indian Vegetarian",
+        "",
+        525,
+        True,
+        False
+    ),
+    (
+        "Vegetable Jalfrezi",
+        "Indian Vegetarian",
+        "",
+        525,
+        True,
+        False
+    ),
+    (
+        "Zeera Aloo",
+        "Indian Vegetarian",
+        "",
+        525,
+        True,
+        False
+    ),
+    (
+        "Gobi Mutter",
+        "Indian Vegetarian",
+        "",
+        525,
+        True,
+        False
+    ),
+    (
+        "Seasonal Vegetable",
+        "Indian Vegetarian",
+        "",
+        525,
+        True,
+        False
+    ),
+    (
+        "Exotic Veg Mix",
+        "Indian Vegetarian",
+        "",
+        525,
+        True,
+        False
+    ),
+    (
+        "Corn Capsicum Masala",
+        "Indian Vegetarian",
+        "",
+        525,
+        True,
+        False
+    ),
+    (
+        "Dum Aloo Chutney Wala",
+        "Indian Vegetarian",
+        "",
+        525,
+        True,
+        False
+    ),
+    (
+        "Chura Pyao",
+        "Indian Vegetarian",
+        "",
+        525,
+        True,
+        False
+    ),
+    (
+        "Soya Keema Mutter",
+        "Indian Vegetarian",
+        "",
+        525,
+        True,
+        False
+    ),
+    (
+        "Virkha Palak",
+        "Indian Vegetarian",
+        "",
+        525,
+        True,
+        False
+    ),
+    (
+        "Baby Corn Jalfrezi",
+        "Indian Vegetarian",
+        "",
+        536,
+        True,
+        False
+    ),
+    (
+        "Achari Aloo",
+        "Indian Vegetarian",
+        "",
+        525,
+        True,
+        False
+    ),
+    (
+        "Boiled Vegetable",
+        "Indian Vegetarian",
+        "",
+        525,
+        True,
+        False
+    ),
+    (
+        "Gobi Masala / Gobi Mutter",
+        "Indian Vegetarian",
+        "",
+        525,
+        True,
+        False
+    ),
+    (
+        "Bhindi Masala",
+        "Indian Vegetarian",
+        "",
+        525,
+        True,
+        False
+    ),
+    (
+        "Vegetable Kofta",
+        "Indian Vegetarian",
+        "",
+        525,
+        True,
+        False
+    ),
+
+
+    # =====================================================
+    # SALADS
+    # =====================================================
+
+    (
+        "Green Salad",
+        "Salads",
+        "",
+        200,
+        True,
+        False
+    ),
+    (
+        "Crispy Salad",
+        "Salads",
+        "",
+        200,
+        True,
+        False
+    ),
+    (
+        "Kachumber Salad",
+        "Salads",
+        "",
+        200,
+        True,
+        False
+    ),
+    (
+        "Russian Salad",
+        "Salads",
+        "",
+        324,
+        True,
+        False
+    ),
+    (
+        "Fruit Salad",
+        "Salads",
+        "",
+        368,
+        True,
+        False
+    ),
+    (
+        "Onion Salad",
+        "Salads",
+        "",
+        156,
+        True,
+        False
+    ),
+    (
+        "Chicken Pineapple Salad",
+        "Salads",
+        "",
+        405,
+        False,
+        False
+    ),
+
+
+    # =====================================================
+    # RAITA
+    # =====================================================
+
+    (
+        "Pineapple Mint Raita",
+        "Raita",
+        "",
+        256,
+        True,
+        False
+    ),
+    (
+        "Dahi Raita",
+        "Raita",
+        "",
+        162,
+        True,
+        False
+    ),
+    (
+        "Boondi Raita",
+        "Raita",
+        "",
+        162,
+        True,
+        False
+    ),
+    (
+        "Aloo Mint Raita",
+        "Raita",
+        "",
+        162,
+        True,
+        False
+    ),
+    (
+        "Mix Raita",
+        "Raita",
+        "",
+        162,
+        True,
+        False
+    ),
+    (
+        "Plain Raita",
+        "Raita",
+        "",
+        144,
+        True,
+        False
+    ),
+
+
+    # =====================================================
+    # NAAN / ROTI
+    # =====================================================
+
+    (
+        "Roti",
+        "Naan / Roti",
+        "",
+        66,
+        True,
+        False
+    ),
+    (
+        "Butter Roti",
+        "Naan / Roti",
+        "",
+        78,
         True,
         False
     ),
     (
         "Laccha Paratha",
-        "Breads",
-        "Multi-layered whole wheat paratha",
+        "Naan / Roti",
+        "",
+        95,
+        True,
+        False
+    ),
+    (
+        "Butter Naan",
+        "Naan / Roti",
+        "",
+        111,
+        True,
+        False
+    ),
+    (
+        "Garlic Naan",
+        "Naan / Roti",
+        "",
+        144,
+        True,
+        False
+    ),
+    (
+        "Roomali Roti",
+        "Naan / Roti",
+        "",
+        144,
+        True,
+        False
+    ),
+    (
+        "Missi Roti",
+        "Naan / Roti",
+        "",
+        111,
+        True,
+        False
+    ),
+    (
+        "Pudina Paratha",
+        "Naan / Roti",
+        "",
+        111,
+        True,
+        False
+    ),
+    (
+        "Onion Kulcha",
+        "Naan / Roti",
+        "",
+        161,
+        True,
+        False
+    ),
+    (
+        "Vegetable Paratha",
+        "Naan / Roti",
+        "",
+        161,
+        True,
+        False
+    ),
+    (
+        "Mutton Keema Naan with Gravy",
+        "Naan / Roti",
+        "",
+        458,
+        False,
+        False
+    ),
+    (
+        "Chicken Keema Naan with Gravy",
+        "Naan / Roti",
+        "",
+        458,
+        False,
+        False
+    ),
+    (
+        "Paneer Naan with Gravy",
+        "Naan / Roti",
+        "",
+        357,
+        True,
+        False
+    ),
+    (
+        "Ajwain Paratha",
+        "Naan / Roti",
+        "",
+        100,
+        True,
+        False
+    ),
+    (
+        "Lal Mirch Paratha",
+        "Naan / Roti",
+        "",
+        100,
+        True,
+        False
+    ),
+    (
+        "Green Mirch Paratha",
+        "Naan / Roti",
+        "",
+        100,
+        True,
+        False
+    ),
+    (
+        "Onion Mix",
+        "Naan / Roti",
+        "",
+        100,
+        True,
+        False
+    ),
+
+
+    # =====================================================
+    # BIRYANI / PULAO
+    # =====================================================
+
+    (
+        "Chicken Biryani (Full/Half)",
+        "Biryani / Pulao",
+        "",
+        749,
+        False,
+        True
+    ),
+    (
+        "Mutton Biryani (Full/Half)",
+        "Biryani / Pulao",
+        "",
+        749,
+        False,
+        True
+    ),
+    (
+        "Vegetable Biryani (Half/Full)",
+        "Biryani / Pulao",
+        "",
+        660,
+        True,
+        False
+    ),
+    (
+        "Kashmiri Pulao",
+        "Biryani / Pulao",
+        "",
+        413,
+        True,
+        False
+    ),
+    (
+        "Peas Pulao",
+        "Biryani / Pulao",
+        "",
+        346,
+        True,
+        False
+    ),
+    (
+        "Vegetable Pulao",
+        "Biryani / Pulao",
+        "",
+        365,
+        True,
+        False
+    ),
+    (
+        "Jeera Rice",
+        "Biryani / Pulao",
+        "",
+        290,
+        True,
+        False
+    ),
+    (
+        "Plain Rice",
+        "Biryani / Pulao",
+        "",
+        290,
+        True,
+        False
+    ),
+
+
+    # =====================================================
+    # SOUPS — CHINESE
+    # =====================================================
+
+    (
+        "Sweet Corn Soup - Chicken",
+        "Soups - Chinese",
+        "",
+        312,
+        False,
+        False
+    ),
+    (
+        "Sweet Corn Soup - Vegetable",
+        "Soups - Chinese",
+        "",
+        290,
+        True,
+        False
+    ),
+    (
+        "Talumein Soup - Chicken",
+        "Soups - Chinese",
+        "",
+        312,
+        False,
+        False
+    ),
+    (
+        "Talumein Soup - Vegetable",
+        "Soups - Chinese",
+        "",
+        290,
+        True,
+        False
+    ),
+    (
+        "Hot & Sour Soup - Chicken",
+        "Soups - Chinese",
+        "",
+        312,
+        False,
+        False
+    ),
+    (
+        "Hot & Sour Soup - Vegetable",
+        "Soups - Chinese",
+        "",
+        290,
+        True,
+        False
+    ),
+    (
+        "Clear Soup - Chicken",
+        "Soups - Chinese",
+        "",
+        312,
+        False,
+        False
+    ),
+    (
+        "Clear Soup - Vegetable",
+        "Soups - Chinese",
+        "",
+        290,
+        True,
+        False
+    ),
+    (
+        "Munchow Soup - Chicken",
+        "Soups - Chinese",
+        "",
+        312,
+        False,
+        False
+    ),
+    (
+        "Munchow Soup - Vegetable",
+        "Soups - Chinese",
+        "",
+        290,
+        True,
+        False
+    ),
+
+
+    # =====================================================
+    # SOUPS — INDIAN
+    # =====================================================
+
+    (
+        "Badam Shorba",
+        "Soups - Indian",
+        "",
+        312,
+        True,
+        False
+    ),
+    (
+        "Tomato Shorba",
+        "Soups - Indian",
+        "",
+        290,
+        True,
+        False
+    ),
+    (
+        "Murg Yakhni Shorba",
+        "Soups - Indian",
+        "",
+        290,
+        False,
+        False
+    ),
+    (
+        "Mushroom Shorba",
+        "Soups - Indian",
+        "",
+        290,
+        True,
+        False
+    ),
+    (
+        "Sip 'n' Dine Special Shorba",
+        "Soups - Indian",
+        "",
+        312,
+        False,
+        True
+    ),
+    (
+        "Cream of Mushroom",
+        "Soups - Indian",
+        "",
+        290,
+        True,
+        False
+    ),
+    (
+        "Cream of Tomato",
+        "Soups - Indian",
+        "",
+        290,
+        True,
+        False
+    ),
+    (
+        "Lemon Coriander",
+        "Soups - Indian",
+        "",
+        290,
+        True,
+        False
+    ),
+
+
+    # =====================================================
+    # DESSERTS & ICE CREAMS
+    # =====================================================
+
+    (
+        "Tutti Fruity",
+        "Desserts & Ice Creams",
+        "",
+        234,
+        True,
+        False
+    ),
+    (
+        "Hot Chocolate Fudge with Brownie",
+        "Desserts & Ice Creams",
+        "",
+        402,
+        True,
+        False
+    ),
+    (
+        "Sizzling Brownie",
+        "Desserts & Ice Creams",
+        "",
+        402,
+        True,
+        True
+    ),
+    (
+        "Ice Cream Boat",
+        "Desserts & Ice Creams",
+        "",
+        346,
+        True,
+        False
+    ),
+    (
+        "Fruit Cream",
+        "Desserts & Ice Creams",
+        "",
+        346,
+        True,
+        False
+    ),
+    (
+        "Gulab Jamun (3 pcs)",
+        "Desserts & Ice Creams",
+        "",
+        156,
+        True,
+        False
+    ),
+    (
+        "Rasmalai (2 pcs)",
+        "Desserts & Ice Creams",
+        "",
+        212,
+        True,
+        False
+    ),
+    (
+        "Cold Kheer",
+        "Desserts & Ice Creams",
+        "",
+        156,
+        True,
+        False
+    ),
+    (
+        "Dakka Kulfi (as per availability)",
+        "Desserts & Ice Creams",
+        "",
         125,
         True,
         False
     ),
     (
-        "Rasmalai Tres Leches",
-        "Desserts",
-        "Fusion cardamom milk cake with pistachio",
-        325,
-        True,
-        True
-    ),
-    (
-        "Gulab Jamun Cheesecake",
-        "Desserts",
-        "Baked cheesecake with saffron gulab jamun",
-        345,
+        "Moong Dal Halwa",
+        "Desserts & Ice Creams",
+        "",
+        234,
         True,
         False
     ),
     (
-        "Masala Chai Old Fashioned",
-        "Drinks",
-        "Chai-infused bourbon, orange bitters (non-alc)",
-        395,
+        "Gajer Halwa (as per availability)",
+        "Desserts & Ice Creams",
+        "",
+        200,
         True,
         False
     ),
     (
-        "Rose Falooda",
-        "Drinks",
-        "Classic rose milk with basil seeds & ice cream",
-        245,
+        "Jalebi (as per availability)",
+        "Desserts & Ice Creams",
+        "",
+        200,
+        True,
+        False
+    ),
+    (
+        "Chocolate Ice Cream",
+        "Desserts & Ice Creams",
+        "",
+        212,
+        True,
+        False
+    ),
+    (
+        "Vanilla Ice Cream",
+        "Desserts & Ice Creams",
+        "",
+        189,
+        True,
+        False
+    ),
+    (
+        "Strawberry Ice Cream",
+        "Desserts & Ice Creams",
+        "",
+        189,
+        True,
+        False
+    ),
+    (
+        "Mango Ice Cream",
+        "Desserts & Ice Creams",
+        "",
+        189,
+        True,
+        False
+    ),
+    (
+        "Black Current Ice Cream",
+        "Desserts & Ice Creams",
+        "",
+        189,
+        True,
+        False
+    ),
+    (
+        "Butter Scotch Ice Cream",
+        "Desserts & Ice Creams",
+        "",
+        189,
+        True,
+        False
+    ),
+    (
+        "Kesar Pista Ice Cream",
+        "Desserts & Ice Creams",
+        "",
+        189,
         True,
         False
     ),
 ]
-
 SEED_RECOGNITION = [
     (
         "Google Reviews",
