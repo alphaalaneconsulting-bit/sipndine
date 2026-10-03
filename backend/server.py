@@ -3731,37 +3731,65 @@ async def startup():
             await db.content.insert_one(doc)
 
     # menu
-    if await db.menu.count_documents({}) == 0:
+        # =========================================================
+# MENU IMPORT / SEED
+# =========================================================
 
-        for i, (
-            name,
-            cat,
-            desc,
-            price,
-            veg,
-            sig
-        ) in enumerate(SEED_MENU):
+MENU_IMPORT_VERSION = "menu_import_2026_10_03_v1"
 
-            doc = MenuItem(
-                name=name,
-                category=cat,
-                description=desc,
-                price=float(price),
-                veg=veg,
-                signature=sig,
-                order=i,
-                image_url=UNSPLASH_BY_CATEGORY.get(
-                    cat,
-                    ""
-                ),
-            ).model_dump()
+menu_import_done = await db.settings.find_one({
+    "_id": MENU_IMPORT_VERSION
+})
 
-            await db.menu.insert_one(doc)
+if not menu_import_done:
 
-        log.info(
-            "Seeded %d menu items",
-            len(SEED_MENU)
-        )
+    log.info("Starting Sip 'n' Dine menu import...")
+
+    # Remove the old demo menu.
+    # This runs ONLY ONCE because of the import marker above.
+    await db.menu.delete_many({})
+
+    for i, (name, cat, desc, price, veg, sig) in enumerate(SEED_MENU):
+
+        # Use a category-specific rich food image as the initial image.
+        image_url = UNSPLASH_BY_CATEGORY.get(cat, "")
+
+        doc = MenuItem(
+            name=name,
+            category=cat,
+            description=desc,
+            price=float(price) if price is not None else None,
+            veg=veg,
+            signature=sig,
+            order=i,
+            image_url=image_url,
+        ).model_dump()
+
+        await db.menu.insert_one(doc)
+
+    # Mark this import as completed.
+    await db.settings.update_one(
+        {"_id": MENU_IMPORT_VERSION},
+        {
+            "$set": {
+                "_id": MENU_IMPORT_VERSION,
+                "completed_at": now_iso(),
+                "items_imported": len(SEED_MENU),
+            }
+        },
+        upsert=True,
+    )
+
+    log.info(
+        "Imported %d Sip 'n' Dine menu items",
+        len(SEED_MENU)
+    )
+
+else:
+    log.info(
+        "Menu import %s already completed — keeping existing menu.",
+        MENU_IMPORT_VERSION
+    )+
 
     # recognition
     if await db.recognition.count_documents({}) == 0:
